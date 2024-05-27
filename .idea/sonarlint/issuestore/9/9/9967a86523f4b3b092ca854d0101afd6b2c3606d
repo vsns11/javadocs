@@ -1,0 +1,27 @@
+
+L	java:S106"+Replace this use of System.out by a logger.(áŠÚ«şÿÿÿÿ8Œú€û1
+L	java:S106"+Replace this use of System.out by a logger.(Îò¡‡şÿÿÿÿ8ú€û1
+L	java:S106"+Replace this use of System.out by a logger.(ó²µ®ùÿÿÿÿ8ú€û1
+G	java:S106%"+Replace this use of System.out by a logger.(¯·—İ8ú€û1
+L	java:S106-"+Replace this use of System.out by a logger.(ù™œ¹úÿÿÿÿ8ú€û1
+L	java:S1065"+Replace this use of System.out by a logger.(„ÔÈíşÿÿÿÿ8ú€û1
+L	java:S106<"+Replace this use of System.out by a logger.(´Ù¾Öúÿÿÿÿ8ú€û1
+G	java:S106="+Replace this use of System.out by a logger.(‹“ñ8ú€û1
+F	java:S106>"+Replace this use of System.out by a logger.(¬Ü‘8ú€û1
+G	java:S106D"+Replace this use of System.out by a logger.(‡ääê8ú€û1
+L	java:S106E"+Replace this use of System.out by a logger.(¥Åº”úÿÿÿÿ8ú€û1
+G	java:S106F"+Replace this use of System.out by a logger.(ÕÑ…8ú€û1
+L	java:S106P"+Replace this use of System.out by a logger.(£²çúúÿÿÿÿ8‘ú€û1
+G	java:S106Q"+Replace this use of System.out by a logger.(Š©í‡8‘ú€û1
+L	java:S106R"+Replace this use of System.out by a logger.(ãÏÒ”ÿÿÿÿÿ8’ú€û1
+G	java:S106Z"+Replace this use of System.out by a logger.(‘œÂö8’ú€û1
+G	java:S106c"+Replace this use of System.out by a logger.(’íéæ8“ú€û1
+G	java:S106k"+Replace this use of System.out by a logger.(ú’°ğ8“ú€û1
+L	java:S106s"+Replace this use of System.out by a logger.(Ç‡ „ûÿÿÿÿ8”ú€û1
+L	java:S106{"+Replace this use of System.out by a logger.(áøÒİûÿÿÿÿ8”ú€û1
+H	java:S106ƒ"+Replace this use of System.out by a logger.(ìØÓù8•ú€û1
+M	java:S106‹"+Replace this use of System.out by a logger.(ºŒ‹üÿÿÿÿ8•ú€û1
+H	java:S106“"+Replace this use of System.out by a logger.(‚ì£¸8–ú€û1
+H	java:S106›"+Replace this use of System.out by a logger.(ˆ­Â8–ú€û1
+N
+java:S1128"1Remove this unused import 'java.time.ZoneOffset'.(ìÍÄË8˜ú€û1

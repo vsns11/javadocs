@@ -1,0 +1,30 @@
+
+D
+java:S2189'""Add an end condition to this loop.(ü§è½ùÿÿÿÿ8ÎÞÌ¸û1
+?
+java:S2189""Add an end condition to this loop.(´ÿÕ™8ÏÞÌ¸û1
+D
+java:S2189""Add an end condition to this loop.(˜ïˆžÿÿÿÿÿ8ÏÞÌ¸û1
+D
+java:S2189@""Add an end condition to this loop.(•ö–ÿýÿÿÿÿ8ÎÞÌ¸û1
+Y
+java:S2589@"7Remove this expression which always evaluates to "true"(•ö–ÿýÿÿÿÿ8ÏÞÌ¸û1
+L	java:S106"+Replace this use of System.out by a logger.(Ó„ËÈûÿÿÿÿ8ÑÞÌ¸û1
+L	java:S106"+Replace this use of System.out by a logger.(¿ìÔ½ûÿÿÿÿ8ÒÞÌ¸û1
+X	java:S125"<This block of commented-out lines of code should be removed.(±¯€¤8ÒÞÌ¸û1
+G	java:S106"+Replace this use of System.out by a logger.(¶­›þ8ÒÞÌ¸û1
+G	java:S106"+Replace this use of System.out by a logger.(ìÄœÉ8ÒÞÌ¸û1
+X	java:S125 "<This block of commented-out lines of code should be removed.(±¯€¤8ÒÞÌ¸û1
+G	java:S106&"+Replace this use of System.out by a logger.(åþ™¢8ÒÞÌ¸û1
+F	java:S106("+Replace this use of System.out by a logger.(ÿû³8ÒÞÌ¸û1
+X	java:S125*"<This block of commented-out lines of code should be removed.(±¯€¤8ÓÞÌ¸û1
+G	java:S1060"+Replace this use of System.out by a logger.(ÌÓÙË8ÓÞÌ¸û1
+L	java:S1067"+Replace this use of System.out by a logger.(€®ÿÐúÿÿÿÿ8ÓÞÌ¸û1
+L	java:S1069"+Replace this use of System.out by a logger.(¹¦…‡úÿÿÿÿ8ÓÞÌ¸û1
+G	java:S106>"+Replace this use of System.out by a logger.(¿­³¯8ÓÞÌ¸û1
+G	java:S106A"+Replace this use of System.out by a logger.(¹¢áÐ8ÔÞÌ¸û1
+X	java:S125C"<This block of commented-out lines of code should be removed.(±¯€¤8ÔÞÌ¸û1
+G	java:S106H"+Replace this use of System.out by a logger.(¿­³¯8ÔÞÌ¸û1
+C
+java:S1481I"&Remove this unused "i" local variable.(»ŸÜš8ÕÞÌ¸û1
+X	java:S125L"<This block of commented-out lines of code should be removed.(×‰Ú›8ÕÞÌ¸û1
