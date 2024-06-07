@@ -45,3 +45,17 @@ g
 7src/main/java/ca/siva/chapter02/SwitchCaseExamples.java,6/2/6286fd638329e82a471333a0e1207df055b71f9e
 i
 9src/main/java/ca/siva/chapter02/InfiniteLoopExamples.java,f/d/fd3f8e05df5cf77018063b61765d23ee2a0af5bb
+k
+;src/main/java/ca/siva/chapter02/LoopWithLabelsExamples.java,0/c/0cf523b364ad098c7715baccf7d9961bae1b8880
+b
+2src/main/java/ca/siva/chapter03/RecordExample.java,3/3/335d8e4c5ada859c03c26043362fb51d71354765
+e
+5src/main/java/ca/siva/chapter03/InterfaceExample.java,c/1/c13fe6a7054349c85113b509106aa74669f30077
+a
+1src/main/java/ca/siva/chapter03/ClassExample.java,1/0/102ff53cbee5f4be2c691b97f39c3d0c74276903
+h
+8src/main/java/ca/siva/chapter03/InitializerExamples.java,8/9/89a5d54c664ac4feae4e254c601f6da020c8496c
+g
+7src/main/java/ca/siva/chapter03/SealedClassExample.java,6/8/68fab4ae2cc3178eeed37568776e402412ee784b
+m
+=src/main/java/ca/siva/chapter03/MethodOverloadingExample.java,c/e/ce5aef8c750af9872bd42b4e849293c1a2f0f3c8

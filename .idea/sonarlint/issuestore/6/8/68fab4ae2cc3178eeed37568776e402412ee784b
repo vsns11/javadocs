@@ -1,0 +1,11 @@
+
+D
+java:S1185@"(Remove this method to simply inherit it.(†ç/8¥ºÿ1
+]	java:S125H"<This block of commented-out lines of code should be removed.(µÆÛ£şÿÿÿÿ8¥ºÿ1
+L	java:S106\"+Replace this use of System.out by a logger.(È¿‹Ùùÿÿÿÿ8¥ºÿ1
+G	java:S106_"+Replace this use of System.out by a logger.(­­ÿ˜8‘¥ºÿ1
+G	java:S106b"+Replace this use of System.out by a logger.(Œâ†Å8‘¥ºÿ1
+L	java:S106e"+Replace this use of System.out by a logger.(¶š´Éùÿÿÿÿ8‘¥ºÿ1
+W	java:S125i"<This block of commented-out lines of code should be removed.(™œ¨:8‘¥ºÿ1
+B
+java:S6217"%Remove this redundant permitted list.(‰½Ë”8‘¥ºÿ1

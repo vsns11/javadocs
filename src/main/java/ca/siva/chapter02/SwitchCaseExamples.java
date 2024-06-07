@@ -1,9 +1,13 @@
 package ca.siva.chapter02;
 
-import java.time.DayOfWeek;
-
 public class SwitchCaseExamples {
 
+    /*
+     1) It doesn't support floating types like float, object and double.
+     However, it does support byte, char, int, short, and their wrapper classes
+     2) Traditional switch statements does support return
+     3) Enum constant name should be used when defined switch case. ***Do not use <ClsName>.<Enum> in case expression
+     */
     public static void main(String[] args) {
         /*
         **NOTE: Java does not support boolean in switch statements; use if-else statements instead.
@@ -20,6 +24,18 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
         byteSwitchExample((byte)2);
         defaultVariableValueInSwitch(123);
         switchWithOnlyDefaultCase(1);
+        byteSwitchWithDefaultExample((byte)5);
+//        varInSwitchCaseWithDoubleExample(10.5);  // New example method
+//        varInSwitchCaseWithDoubleExample("Hello");  // New example method
+        instanceofPatternMatchingExample("Hello");  // New example method
+        instanceofPatternMatchingExample(123);  // New example method
+        instanceofPatternMatchingWithOrExample("Hello, World!");  // New example method
+        instanceofPatternMatchingWithOrExample(123);  // New example method
+        instanceofPatternMatchingWithOrExample(3.14);  // New example method
+
+        enumWithDefaultCaseExample(DayOfWeek.MONDAY);
+        enumWithDefaultCaseExample(DayOfWeek.SUNDAY);
+        enumWithDefaultCaseExample(null);  // Handling null value
     }
 
     // Old switch-case style
@@ -135,13 +151,12 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
         System.out.println("Exhaustive switch case type of day: " + typeOfDay);
     }
 
-
     public static void byteSwitchExample(byte value) {
         switch (value) {
             case 1 -> System.out.println("Value is 1");
             case 2 -> System.out.println("Value is 2");
             case 3 -> System.out.println("Value is 3");
-            // No default case
+            // No default case because assignment is not present for the return value
         }
     }
 
@@ -175,8 +190,92 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
         }
     }
 
+    // Byte switch case with default
+    public static void byteSwitchWithDefaultExample(byte value) {
+        switch (value) {
+            case 1 -> System.out.println("Value is 1");
+            case 2 -> System.out.println("Value is 2");
+            case 3 -> System.out.println("Value is 3");
+            default -> System.out.println("Default case: Value is " + value);
+        }
+    }
+
+    // Example using var in switch case with double cast
+//    public static void varInSwitchCaseWithDoubleExample(Object obj) {
+//        var result = switch (obj) {
+//            case Integer i -> (double) i;
+//            case String s -> s.length() * 1.0;
+//            case Double d -> d;
+//            default -> -1.0;
+//        };
+//        System.out.println("Var in switch case with double result: " + result);
+//    }
+
+    // Example using instanceof pattern matching with flow scoping
+    public static void instanceofPatternMatchingExample(Object obj) {
+        if (obj instanceof String s) {
+            System.out.println("String with length: " + s.length());
+        } else if (obj instanceof Integer i) {
+            System.out.println("Integer with value: " + i);
+        } else if (obj instanceof Double d) {
+            System.out.println("Double with value: " + d);
+        } else {
+            System.out.println("Unknown type");
+        }
+    }
+
+    // Example using instanceof pattern matching with || check
+    public static void instanceofPatternMatchingWithOrExample(Object obj) {
+        if (obj instanceof String s && (s.length() > 5 || s.contains("Hello"))) {
+            System.out.println("String with length > 5 or contains 'Hello': " + s);
+        } else if (obj instanceof Integer i && (i > 100 || i % 2 == 0)) {
+            System.out.println("Integer > 100 or even: " + i);
+        } else if (obj instanceof Double d && (d > 0 || d.isNaN())) {
+            System.out.println("Double > 0 or NaN: " + d);
+        }
+        /*
+        *** The below does not work because instanceof pattern matching uses flowtyping
+        * and d won't be available to access, hence compilation error.
+
+        else if (obj instanceof Integer d || Math.abs(d) == 0) {
+        }*/
+
+        else {
+            System.out.println("Unknown type or condition not met");
+        }
+    }
+
     // Enum representing days of the week
     enum DayOfWeek {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+    }
+
+    // New method demonstrating a switch case with both default and specific enum cases
+    public static void enumWithDefaultCaseExample(DayOfWeek day) {
+        String typeOfDay = switch (day) {
+            case MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY -> "Weekday";
+            case SATURDAY, SUNDAY -> "Weekend";
+            default -> {
+                if (day == null) {
+                    yield "Null day"; // Special handling for null value
+                }
+                yield "Unknown day"; // Default case
+            }
+        };
+        System.out.println("Enum switch with default case type of day: " + typeOfDay);
+    }
+
+    public static void enumWithDefaulAndNormalCase(DayOfWeek day) {
+        String ans = "";
+         switch (day) {
+             case MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY :
+                 ans = "Weekday";
+                 break;
+            case SATURDAY:
+             default:
+                 ans = "avc";
+                 break;
+        };
+        System.out.println("Enum switch with default case type of day: " + ans);
     }
 }

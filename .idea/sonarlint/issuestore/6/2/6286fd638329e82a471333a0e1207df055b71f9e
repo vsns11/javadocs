@@ -1,41 +1,59 @@
 
 d
-java:S1192!"GDefine a constant instead of duplicating this literal "Monday" 3 times.(ëÉÚ´8õšŠ¸û1
+java:S11921"GDefine a constant instead of duplicating this literal "Monday" 3 times.(ëÉÚ´8“Â¿‚ÿ1
 f
-java:S11920"IDefine a constant instead of duplicating this literal "Saturday" 3 times.(¼è”î8õšŠ¸û1
+java:S1192@"IDefine a constant instead of duplicating this literal "Saturday" 3 times.(¼è”î8”Â¿‚ÿ1
 i
-java:S1192-"GDefine a constant instead of duplicating this literal "Friday" 3 times.(Ó´âõúÿÿÿÿ8õšŠ¸û1
+java:S1192="GDefine a constant instead of duplicating this literal "Friday" 3 times.(Ó´âõúÿÿÿÿ8”Â¿‚ÿ1
 j
-java:S1192$"HDefine a constant instead of duplicating this literal "Tuesday" 3 times.(ê±ûŸúÿÿÿÿ8õšŠ¸û1
-j
-java:S1192"HDefine a constant instead of duplicating this literal "TUESDAY" 3 times.(ğíĞØøÿÿÿÿ8õšŠ¸û1
-d
-java:S1192"GDefine a constant instead of duplicating this literal "MONDAY" 3 times.(µë÷¾8õšŠ¸û1
-f
-java:S1192*"IDefine a constant instead of duplicating this literal "Thursday" 3 times.(÷ãî£8õšŠ¸û1
+java:S1192"HDefine a constant instead of duplicating this literal "TUESDAY" 3 times.(ğíĞØøÿÿÿÿ8”Â¿‚ÿ1
 i
-java:S1192"GDefine a constant instead of duplicating this literal "Sunday" 3 times.(‡ËÎœøÿÿÿÿ8øšŠ¸û1
+java:S1192."GDefine a constant instead of duplicating this literal "Sunday" 3 times.(‡ËÎœøÿÿÿÿ8”Â¿‚ÿ1
 l
-java:S1192'"JDefine a constant instead of duplicating this literal "Wednesday" 3 times.(¢ÖÚ¾øÿÿÿÿ8úšŠ¸û1
+java:S11927"JDefine a constant instead of duplicating this literal "Wednesday" 3 times.(¢ÖÚ¾øÿÿÿÿ8”Â¿‚ÿ1
+f
+java:S1192“"HDefine a constant instead of duplicating this literal "Weekday" 3 times.(Ë¨Ïö8”Â¿‚ÿ1
+j
+java:S11924"HDefine a constant instead of duplicating this literal "Tuesday" 3 times.(ê±ûŸúÿÿÿÿ8”Â¿‚ÿ1
+d
+java:S1192"GDefine a constant instead of duplicating this literal "MONDAY" 3 times.(µë÷¾8”Â¿‚ÿ1
+f
+java:S1192:"IDefine a constant instead of duplicating this literal "Thursday" 3 times.(÷ãî£8”Â¿‚ÿ1
 n
-java:S1301­"KReplace this "switch" statement by "if" statements to increase readability.(İõô£ùÿÿÿÿ8Åó¯¸û1
-G	java:S1066"+Replace this use of System.out by a logger.(ïıá°8œ›Š¸û1
-L	java:S106E"+Replace this use of System.out by a logger.(¯Œ ÿıÿÿÿÿ8œ›Š¸û1
-F	java:S106T"+Replace this use of System.out by a logger.(òÆ¤8›Š¸û1
-L	java:S106`"+Replace this use of System.out by a logger.(µÔÓ¶ÿÿÿÿÿ8›Š¸û1
-G	java:S106i"+Replace this use of System.out by a logger.(é‹ãû8›Š¸û1
-G	java:S106m"+Replace this use of System.out by a logger.(ºÁŸ‡8›Š¸û1
-G	java:S106}"+Replace this use of System.out by a logger.(üÚ¬«8›Š¸û1
-M	java:S106‡"+Replace this use of System.out by a logger.(¶««úûÿÿÿÿ8Ÿ›Š¸û1
-D	java:S131Œ""Add a default case to this switch.(İõô£ùÿÿÿÿ8Ÿ›Š¸û1
-H	java:S106"+Replace this use of System.out by a logger.(ØÌáË8Ÿ›Š¸û1
-M	java:S106"+Replace this use of System.out by a logger.(ç“¾¡ûÿÿÿÿ8Ÿ›Š¸û1
-H	java:S106"+Replace this use of System.out by a logger.(¬ü¦ı8Ÿ›Š¸û1
+java:S1301¼"KReplace this "switch" statement by "if" statements to increase readability.(İõô£ùÿÿÿÿ8•Â¿‚ÿ1
+G	java:S106F"+Replace this use of System.out by a logger.(ïıá°8©Â¿‚ÿ1
+L	java:S106U"+Replace this use of System.out by a logger.(¯Œ ÿıÿÿÿÿ8©Â¿‚ÿ1
+F	java:S106d"+Replace this use of System.out by a logger.(òÆ¤8ªÂ¿‚ÿ1
+L	java:S106p"+Replace this use of System.out by a logger.(µÔÓ¶ÿÿÿÿÿ8ªÂ¿‚ÿ1
+G	java:S106y"+Replace this use of System.out by a logger.(é‹ãû8ªÂ¿‚ÿ1
+G	java:S106}"+Replace this use of System.out by a logger.(ºÁŸ‡8ªÂ¿‚ÿ1
+H	java:S106"+Replace this use of System.out by a logger.(üÚ¬«8«Â¿‚ÿ1
+M	java:S106—"+Replace this use of System.out by a logger.(¶««úûÿÿÿÿ8«Â¿‚ÿ1
+D	java:S131›""Add a default case to this switch.(İõô£ùÿÿÿÿ8«Â¿‚ÿ1
+H	java:S106œ"+Replace this use of System.out by a logger.(ØÌáË8«Â¿‚ÿ1
+M	java:S106"+Replace this use of System.out by a logger.(ç“¾¡ûÿÿÿÿ8«Â¿‚ÿ1
+H	java:S106"+Replace this use of System.out by a logger.(¬ü¦ı8«Â¿‚ÿ1
 O
-java:S1172”",Remove this unused method parameter "value".(øı£ıÿÿÿÿ8Ş‘¢¸û1
-M	java:S106œ"+Replace this use of System.out by a logger.(ÊéÛûÿÿÿÿ8 ›Š¸û1
-M	java:S106¥"+Replace this use of System.out by a logger.(ëÏ£·úÿÿÿÿ8 ›Š¸û1
-H	java:S106§"+Replace this use of System.out by a logger.(òİô’8ß‘¢¸û1
-M	java:S106®"+Replace this use of System.out by a logger.(ß™®ıÿÿÿÿ8İó¯¸û1
-R
-java:S1128"0Remove this unused import 'java.time.DayOfWeek'.(Óò»¸şÿÿÿÿ8­­‹¸û1
+java:S1172£",Remove this unused method parameter "value".(øı£ıÿÿÿÿ8¬Â¿‚ÿ1
+M	java:S106«"+Replace this use of System.out by a logger.(ÊéÛûÿÿÿÿ8¬Â¿‚ÿ1
+M	java:S106´"+Replace this use of System.out by a logger.(ëÏ£·úÿÿÿÿ8¬Â¿‚ÿ1
+H	java:S106¶"+Replace this use of System.out by a logger.(òİô’8¬Â¿‚ÿ1
+M	java:S106½"+Replace this use of System.out by a logger.(ß™®ıÿÿÿÿ8­Â¿‚ÿ1
+H	java:S106Ä"+Replace this use of System.out by a logger.(ØÌáË8­Â¿‚ÿ1
+M	java:S106Å"+Replace this use of System.out by a logger.(ç“¾¡ûÿÿÿÿ8­Â¿‚ÿ1
+H	java:S106Æ"+Replace this use of System.out by a logger.(¬ü¦ı8­Â¿‚ÿ1
+M	java:S106Ç"+Replace this use of System.out by a logger.(ÇĞñ§şÿÿÿÿ8­Â¿‚ÿ1
+Y	java:S125Ì"<This block of commented-out lines of code should be removed.(¯á‘¿8®Â¿‚ÿ1
+M	java:S106Ù"+Replace this use of System.out by a logger.(¹õ¤ˆÿÿÿÿÿ8®Â¿‚ÿ1
+M	java:S106Û"+Replace this use of System.out by a logger.(Æ¨©»øÿÿÿÿ8®Â¿‚ÿ1
+M	java:S106İ"+Replace this use of System.out by a logger.(÷ŞÈ¤ùÿÿÿÿ8®Â¿‚ÿ1
+M	java:S106ß"+Replace this use of System.out by a logger.(¬éÀ–ûÿÿÿÿ8®Â¿‚ÿ1
+G	java:S106æ"+Replace this use of System.out by a logger.(ÿ´ÿw8¯Â¿‚ÿ1
+H	java:S106è"+Replace this use of System.out by a logger.(™€…ñ8¯Â¿‚ÿ1
+H	java:S106ê"+Replace this use of System.out by a logger.(×ÇÓ¯8¯Â¿‚ÿ1
+^	java:S125ğ"<This block of commented-out lines of code should be removed.(ãËÄáÿÿÿÿÿ8¯Â¿‚ÿ1
+M	java:S106ô"+Replace this use of System.out by a logger.(É íüÿÿÿÿÿ8¯Â¿‚ÿ1
+H	java:S106‰"+Replace this use of System.out by a logger.(®ƒ¯ê8°Â¿‚ÿ1
+?
+java:S1116–"Remove this empty statement.(ôŸìúÿÿÿÿ8±Â¿‚ÿ1
+M	java:S106—"+Replace this use of System.out by a logger.(§úìşÿÿÿÿ8±Â¿‚ÿ1
