@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version "${spring_boot_version}"
+    id 'io.spring.dependency-management' version "${spring_boot_dependency_version}"
 }
 
 group = 'ca.siva'
@@ -10,6 +12,9 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 }
 
 test {

@@ -1,6 +1,9 @@
 package ca.siva.chapter01;
 
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MixedTypeArithmeticExamples {
 
     // Adding int, float, and double
@@ -13,9 +16,9 @@ public class MixedTypeArithmeticExamples {
         double doubleResult = intValue + doubleValue; // int promoted to double
         double mixedResult = floatValue + doubleValue; // float promoted to double
 
-        System.out.println("Addition (int + float): " + floatResult); // 25.5
-        System.out.println("Addition (int + double): " + doubleResult); // 30.25
-        System.out.println("Addition (float + double): " + mixedResult); // 35.75
+        log.info("Addition (int + float): " + floatResult); // 25.5
+        log.info("Addition (int + double): " + doubleResult); // 30.25
+        log.info("Addition (float + double): " + mixedResult); // 35.75
     }
 
     // Subtracting int, float, and double
@@ -28,9 +31,9 @@ public class MixedTypeArithmeticExamples {
         double doubleResult = intValue - doubleValue; // int promoted to double
         double mixedResult = floatValue - doubleValue; // float promoted to double
 
-        System.out.println("Subtraction (int - float): " + floatResult); // 34.5
-        System.out.println("Subtraction (int - double): " + doubleResult); // 29.75
-        System.out.println("Subtraction (float - double): " + mixedResult); // -4.75
+        log.info("Subtraction (int - float): " + floatResult); // 34.5
+        log.info("Subtraction (int - double): " + doubleResult); // 29.75
+        log.info("Subtraction (float - double): " + mixedResult); // -4.75
     }
 
     // Multiplying int, float, and double
@@ -43,9 +46,9 @@ public class MixedTypeArithmeticExamples {
         double doubleResult = intValue * doubleValue; // int promoted to double
         double mixedResult = floatValue * doubleValue; // float promoted to double
 
-        System.out.println("Multiplication (int * float): " + floatResult); // 77.5
-        System.out.println("Multiplication (int * double): " + doubleResult); // 12.5
-        System.out.println("Multiplication (float * double): " + mixedResult); // 38.75
+        log.info("Multiplication (int * float): " + floatResult); // 77.5
+        log.info("Multiplication (int * double): " + doubleResult); // 12.5
+        log.info("Multiplication (float * double): " + mixedResult); // 38.75
     }
 
     // Dividing int, float, and double
@@ -58,9 +61,9 @@ public class MixedTypeArithmeticExamples {
         double doubleResult = intValue / doubleValue; // int promoted to double
         double mixedResult = floatValue / doubleValue; // float promoted to double
 
-        System.out.println("Division (int / float): " + floatResult); // ~6.4516129
-        System.out.println("Division (int / double): " + doubleResult); // 40.0
-        System.out.println("Division (float / double): " + mixedResult); // 6.2
+        log.info("Division (int / float): " + floatResult); // ~6.4516129
+        log.info("Division (int / double): " + doubleResult); // 40.0
+        log.info("Division (float / double): " + mixedResult); // 6.2
     }
 
     // Mixed operations with int, float, and double
@@ -75,7 +78,7 @@ public class MixedTypeArithmeticExamples {
         // intValue + (result of multiplication) -> promoted to double
         // (result of addition) - (result of division)
 
-        System.out.println("Mixed operations result: " + mixedResult); // 10 + (15.5 * 2.5) - (2.5 / 15.5)
+        log.info("Mixed operations result: " + mixedResult); // 10 + (15.5 * 2.5) - (2.5 / 15.5)
         // 10 + 38.75 - 0.16129032
         // 48.58870968
     }

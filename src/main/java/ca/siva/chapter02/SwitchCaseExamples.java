@@ -1,5 +1,8 @@
 package ca.siva.chapter02;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SwitchCaseExamples {
 
     /*
@@ -67,7 +70,7 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
                 dayName = "Invalid day";
                 break;
         }
-        System.out.println("Old switch case day name: " + dayName);
+        log.info("Old switch case day name: " + dayName);
     }
 
     // Enhanced switch-case style
@@ -82,7 +85,7 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
             case 7 -> "Saturday";
             default -> "Invalid day";
         };
-        System.out.println("Enhanced switch case day name: " + dayName);
+        log.info("Enhanced switch case day name: " + dayName);
     }
 
     // Switch expression example
@@ -97,7 +100,7 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
             case "SATURDAY" -> 7;
             default -> throw new IllegalArgumentException("Invalid day: " + day);
         };
-        System.out.println("Switch expression day number: " + dayNumber);
+        log.info("Switch expression day number: " + dayNumber);
     }
 
     // Switch with multiple case labels
@@ -109,7 +112,7 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
             case 9, 10, 11 -> "Fall";
             default -> throw new IllegalArgumentException("Invalid month: " + month);
         };
-        System.out.println("Season: " + season);
+        log.info("Season: " + season);
     }
 
     // Using yield in switch expression
@@ -118,11 +121,11 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
             case "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY" -> 8;
             case "SATURDAY", "SUNDAY" -> 0;
             default -> {
-                System.out.println("Invalid day: " + day);
+                log.info("Invalid day: " + day);
                 yield -1; // Use yield to return a value from a block
             }
         };
-        System.out.println("Work hours on " + day + ": " + workHours);
+        log.info("Work hours on " + day + ": " + workHours);
     }
 
     // Switch expression example without default case (skipped default)
@@ -138,7 +141,7 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
             // No default case
             default -> "N/A";
         };
-        System.out.println("Switch without default case day name: " + dayName);
+        log.info("Switch without default case day name: " + dayName);
     }
 
     // Exhaustive switch example with enum (skipped default)
@@ -148,14 +151,14 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
             case SATURDAY, SUNDAY -> "Weekend";
             // No default case needed because all enum values are covered
         };
-        System.out.println("Exhaustive switch case type of day: " + typeOfDay);
+        log.info("Exhaustive switch case type of day: " + typeOfDay);
     }
 
     public static void byteSwitchExample(byte value) {
         switch (value) {
-            case 1 -> System.out.println("Value is 1");
-            case 2 -> System.out.println("Value is 2");
-            case 3 -> System.out.println("Value is 3");
+            case 1 -> log.info("Value is 1");
+            case 2 -> log.info("Value is 2");
+            case 3 -> log.info("Value is 3");
             // No default case because assignment is not present for the return value
         }
     }
@@ -168,7 +171,7 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
             case 3 -> result = "Three";
             default -> result = "Unknown"; // Default value assignment
         }
-        System.out.println("The result is: " + result); // Will always print "Unknown"
+        log.info("The result is: " + result); // Will always print "Unknown"
     }
 
     // Boolean example using if-else
@@ -177,26 +180,26 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
          **NOTE: Java does not support boolean in switch statements; use if-else statements instead.
          */
         if (flag) {
-            System.out.println("Flag is true");
+            log.info("Flag is true");
         } else {
-            System.out.println("Flag is false");
+            log.info("Flag is false");
         }
     }
 
     // Switch statement with only a default case
     public static void switchWithOnlyDefaultCase(int value) {
         switch (value) {
-            default -> System.out.println("Default case executed with value: " + value);
+            default -> log.info("Default case executed with value: " + value);
         }
     }
 
     // Byte switch case with default
     public static void byteSwitchWithDefaultExample(byte value) {
         switch (value) {
-            case 1 -> System.out.println("Value is 1");
-            case 2 -> System.out.println("Value is 2");
-            case 3 -> System.out.println("Value is 3");
-            default -> System.out.println("Default case: Value is " + value);
+            case 1 -> log.info("Value is 1");
+            case 2 -> log.info("Value is 2");
+            case 3 -> log.info("Value is 3");
+            default -> log.info("Default case: Value is " + value);
         }
     }
 
@@ -208,30 +211,30 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
 //            case Double d -> d;
 //            default -> -1.0;
 //        };
-//        System.out.println("Var in switch case with double result: " + result);
+//        log.info("Var in switch case with double result: " + result);
 //    }
 
     // Example using instanceof pattern matching with flow scoping
     public static void instanceofPatternMatchingExample(Object obj) {
         if (obj instanceof String s) {
-            System.out.println("String with length: " + s.length());
+            log.info("String with length: " + s.length());
         } else if (obj instanceof Integer i) {
-            System.out.println("Integer with value: " + i);
+            log.info("Integer with value: " + i);
         } else if (obj instanceof Double d) {
-            System.out.println("Double with value: " + d);
+            log.info("Double with value: " + d);
         } else {
-            System.out.println("Unknown type");
+            log.info("Unknown type");
         }
     }
 
     // Example using instanceof pattern matching with || check
     public static void instanceofPatternMatchingWithOrExample(Object obj) {
         if (obj instanceof String s && (s.length() > 5 || s.contains("Hello"))) {
-            System.out.println("String with length > 5 or contains 'Hello': " + s);
+            log.info("String with length > 5 or contains 'Hello': " + s);
         } else if (obj instanceof Integer i && (i > 100 || i % 2 == 0)) {
-            System.out.println("Integer > 100 or even: " + i);
+            log.info("Integer > 100 or even: " + i);
         } else if (obj instanceof Double d && (d > 0 || d.isNaN())) {
-            System.out.println("Double > 0 or NaN: " + d);
+            log.info("Double > 0 or NaN: " + d);
         }
         /*
         *** The below does not work because instanceof pattern matching uses flowtyping
@@ -241,7 +244,7 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
         }*/
 
         else {
-            System.out.println("Unknown type or condition not met");
+            log.info("Unknown type or condition not met");
         }
     }
 
@@ -262,10 +265,10 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
                 yield "Unknown day"; // Default case
             }
         };
-        System.out.println("Enum switch with default case type of day: " + typeOfDay);
+        log.info("Enum switch with default case type of day: " + typeOfDay);
     }
 
-    public static void enumWithDefaulAndNormalCase(DayOfWeek day) {
+    public static void enumWithDefaultAndNormalCase(DayOfWeek day) {
         String ans = "";
          switch (day) {
              case MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY :
@@ -276,6 +279,19 @@ Default Case: Can be omitted if it is guaranteed that all possible values are ex
                  ans = "avc";
                  break;
         };
-        System.out.println("Enum switch with default case type of day: " + ans);
+        log.info("Enum switch with default case type of day: " + ans);
+    }
+
+    public static void enumSwitchWithoutBreak(DayOfWeek day) {
+        String ans = "";
+        switch (day) {
+            case MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY :
+                ans = "Weekday";
+            case SATURDAY:
+            default:
+                ans = "avc";
+                break;
+        };
+        log.info("Enum switch with default case type of day: " + ans);
     }
 }

@@ -1,7 +1,10 @@
 package ca.siva.chapter01;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Objects;
 
+@Slf4j
 public class EqualsExample {
 
     static class Person {
@@ -40,8 +43,8 @@ public class EqualsExample {
         Person p2 = new Person("Alice", 30);
         Person p3 = new Person("Bob", 25);
 
-        System.out.println(p1.equals(p2)); // true
-        System.out.println(p1.equals(p3)); // false
+        log.info("{}", p1.equals(p2)); // true
+        log.info("{}", p1.equals(p3)); // false
     }
 
 }

@@ -1,5 +1,8 @@
 package ca.siva.chapter01;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class StringBuilderExamples {
 
     public static void main(String[] args) {
@@ -34,64 +37,64 @@ public class StringBuilderExamples {
     private static void basicUsage() {
         StringBuilder sb = new StringBuilder("Hello");
         sb.append(" World");
-        System.out.println("Basic Usage: " + sb.toString());
+        log.info("Basic Usage: " + sb.toString());
     }
 
     private static void appendExample() {
         StringBuilder sb = new StringBuilder();
         sb.append("StringBuilder ").append("is ").append("efficient.").append(100);
-        System.out.println("Append Example: " + sb.toString());
+        log.info("Append Example: " + sb.toString());
     }
 
     private static void insertExample() {
         StringBuilder sb = new StringBuilder("Java");
         sb.insert(4, " Programming");
-        System.out.println("Insert Example: " + sb.toString());
+        log.info("Insert Example: " + sb.toString());
     }
 
     private static void deleteExample() {
         StringBuilder sb = new StringBuilder("0123456789");
         sb.delete(2, 5);
-        System.out.println("Delete Example: " + sb.toString());
+        log.info("Delete Example: " + sb.toString());
         sb.deleteCharAt(0);
-        System.out.println("DeleteCharAt Example: " + sb.toString());
+        log.info("DeleteCharAt Example: " + sb.toString());
     }
 
     private static void replaceExample() {
         StringBuilder sb = new StringBuilder("Hello, World!");
         sb.replace(7, 12, "Java");
-        System.out.println("Replace Example: " + sb.toString());
+        log.info("Replace Example: " + sb.toString());
     }
 
     private static void reverseExample() {
         StringBuilder sb = new StringBuilder("ABCDE");
         sb.reverse();
-        System.out.println("Reverse Example: " + sb.toString());
+        log.info("Reverse Example: " + sb.toString());
     }
 
     private static void substringExample() {
         StringBuilder sb = new StringBuilder("Hello, World!");
         String sub = sb.substring(7, 12);
-        System.out.println("Substring Example: " + sub);
+        log.info("Substring Example: " + sub);
     }
 
     private static void capacityAndLengthExample() {
         StringBuilder sb = new StringBuilder(50);
-        System.out.println("Initial Capacity: " + sb.capacity());
+        log.info("Initial Capacity: " + sb.capacity());
         sb.append("Hello, World!");
-        System.out.println("After Append, Capacity: " + sb.capacity());
-        System.out.println("Length: " + sb.length());
+        log.info("After Append, Capacity: " + sb.capacity());
+        log.info("Length: " + sb.length());
         sb.ensureCapacity(100);
-        System.out.println("After Ensure Capacity, Capacity: " + sb.capacity());
+        log.info("After Ensure Capacity, Capacity: " + sb.capacity());
         sb.setLength(5);
-        System.out.println("After Set Length: " + sb.toString());
+        log.info("After Set Length: " + sb.toString());
     }
 
     private static void charAtAndSetCharAtExample() {
         StringBuilder sb = new StringBuilder("Java");
         char ch = sb.charAt(1);
-        System.out.println("CharAt Example: " + ch);
+        log.info("CharAt Example: " + ch);
         sb.setCharAt(1, 'u');
-        System.out.println("SetCharAt Example: " + sb.toString());
+        log.info("SetCharAt Example: " + sb.toString());
     }
 }

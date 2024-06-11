@@ -1,12 +1,16 @@
 
 E
-java:S1604<"(Make this anonymous inner class a lambda(¼æıï8‰½ªúş1
-G	java:S106"+Replace this use of System.out by a logger.(ŞğÙ¯8•½ªúş1
-G	java:S106"+Replace this use of System.out by a logger.(ŞğÙ¯8–½ªúş1
-L	java:S106"+Replace this use of System.out by a logger.(œñĞıÿÿÿÿ8–½ªúş1
-G	java:S106*"+Replace this use of System.out by a logger.(ş¯İ³8—½ªúş1
-L	java:S106,"+Replace this use of System.out by a logger.(œñĞıÿÿÿÿ8—½ªúş1
-G	java:S106."+Replace this use of System.out by a logger.(ŞğÙ¯8—½ªúş1
-G	java:S106@"+Replace this use of System.out by a logger.(ş¯İ³8˜½ªúş1
-L	java:S106B"+Replace this use of System.out by a logger.(œñĞıÿÿÿÿ8˜½ªúş1
-G	java:S106D"+Replace this use of System.out by a logger.(ŞğÙ¯8˜½ªúş1
+java:S1604T"(Make this anonymous inner class a lambda(¼æıï8¢ô¾ïÿ1
+h
+java:S1223"LRename this method to prevent any misunderstanding or make it a constructor.(òÉ’W8£ô¾ïÿ1
+i	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÉ’W8¨ô¾ïÿ1
+Z
+java:S1854Š"7Remove this useless assignment to local variable "var".(¡íºĞıÿÿÿÿ8ùµÁïÿ1
+S
+java:S1854}"6Remove this useless assignment to local variable "ic".(¿¹ªû8ªô¾ïÿ1
+D
+java:S1481}"'Remove this unused "ic" local variable.(¿¹ªû8«ô¾ïÿ1
+]
+java:S6213Š":Rename this variable to not match a restricted identifier.(¡íºĞıÿÿÿÿ8úµÁïÿ1
+K
+java:S1481Š"(Remove this unused "var" local variable.(¡íºĞıÿÿÿÿ8úµÁïÿ1

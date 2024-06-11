@@ -1,6 +1,8 @@
 package ca.siva.chapter01;
 
- enum Season {
+import lombok.extern.slf4j.Slf4j;
+
+enum Season {
     WINTER("Cold season", 0),
     SPRING("Mild season", 15),
     SUMMER("Hot season", 30),
@@ -26,23 +28,24 @@ package ca.siva.chapter01;
     }
 }
 
+@Slf4j
 public class EnumWithValuesExample {
 
     // Example of accessing custom values in an enum
     public static void accessEnumValues() {
         for (Season season : Season.values()) {
-            System.out.println("Season: " + season);
-            System.out.println("Description: " + season.getDescription());
-            System.out.println("Average Temperature: " + season.getAverageTemperature() + "°C");
+            log.info("Season: " + season);
+            log.info("Description: " + season.getDescription());
+            log.info("Average Temperature: " + season.getAverageTemperature() + "°C");
         }
     }
 
     // Example of using valueOf() method
     public static void usingValueOfMethod() {
         Season season = Season.valueOf("SUMMER");
-        System.out.println("Season from valueOf: " + season);
-        System.out.println("Description: " + season.getDescription());
-        System.out.println("Average Temperature: " + season.getAverageTemperature() + "°C");
+        log.info("Season from valueOf: " + season);
+        log.info("Description: " + season.getDescription());
+        log.info("Average Temperature: " + season.getAverageTemperature() + "°C");
     }
 
     public static void main(String[] args) {

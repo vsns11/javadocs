@@ -1,5 +1,8 @@
 package ca.siva.chapter01;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 
 public class ByteValueExample {
 
@@ -28,12 +31,12 @@ public class ByteValueExample {
         byte floatValue = floatObj.byteValue();
         byte doubleValue = doubleObj.byteValue();
 
-        System.out.println("Byte value: " + byteValue); // 123
-        System.out.println("Short value as byte: " + shortValue); // 57 (12345 % 256)
-        System.out.println("Integer value as byte: " + intValue); // 87 (1234567 % 256)
-        System.out.println("Long value as byte: " + longValue); // 21 (123456789 % 256)
-        System.out.println("Float value as byte: " + floatValue); // 123
-        System.out.println("Double value as byte: " + doubleValue); // 123
+        log.info("Byte value: " + byteValue); // 123
+        log.info("Short value as byte: " + shortValue); // 57 (12345 % 256)
+        log.info("Integer value as byte: " + intValue); // 87 (1234567 % 256)
+        log.info("Long value as byte: " + longValue); // 21 (123456789 % 256)
+        log.info("Float value as byte: " + floatValue); // 123
+        log.info("Double value as byte: " + doubleValue); // 123
     }
 
     /**
@@ -43,7 +46,7 @@ public class ByteValueExample {
     private static void byteValueFromCharacter() {
         char ch = 'A'; // ASCII value of 'A' is 65
         byte byteValue = (byte) ch;
-        System.out.println("Character 'A' as byte: " + byteValue); // 65
+        log.info("Character 'A' as byte: " + byteValue); // 65
     }
 
     /**
@@ -54,13 +57,13 @@ public class ByteValueExample {
     private static void byteValueFromString() {
         String str = "123";
         byte byteValue = Byte.parseByte(str);
-        System.out.println("String '123' as byte: " + byteValue); // 123
+        log.info("String '123' as byte: " + byteValue); // 123
 
         // Converting each character of the string to byte values
         String str2 = "ABC";
         for (char ch : str2.toCharArray()) {
             byte byteChar = (byte) ch;
-            System.out.println("Character '" + ch + "' as byte: " + byteChar);
+            log.info("Character '" + ch + "' as byte: " + byteChar);
         }
         // Output:
         // Character 'A' as byte: 65

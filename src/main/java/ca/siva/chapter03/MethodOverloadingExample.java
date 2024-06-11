@@ -1,20 +1,23 @@
 package ca.siva.chapter03;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MethodOverloadingExample {
 
     // Method with int parameter
     public void printValue(int value) {
-        System.out.println("Method with int parameter: " + value);
+        log.info("Method with int parameter: " + value);
     }
 
     // Method with Integer parameter
     public void printValue(Integer value) {
-        System.out.println("Method with Integer parameter: " + value);
+        log.info("Method with Integer parameter: " + value);
     }
 
     // Method with Object parameter
     public void printValue(Object value) {
-        System.out.println("Method with Object parameter: " + value);
+        log.info("Method with Object parameter: " + value);
     }
 
     public static void main(String[] args) {

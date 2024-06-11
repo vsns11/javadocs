@@ -1,6 +1,9 @@
 package ca.siva.chapter01;
 
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ValueOfExample {
 
     public static void main(String[] args) {
@@ -21,7 +24,7 @@ public class ValueOfExample {
     private static void valueOfByte() {
         String str = "123";
         Byte byteValue = Byte.valueOf(str);
-        System.out.println("String '123' to Byte: " + byteValue); // Output: 123
+        log.info("String '123' to Byte: " + byteValue); // Output: 123
     }
 
     /**
@@ -30,7 +33,7 @@ public class ValueOfExample {
     private static void valueOfShort() {
         String str = "12345";
         Short shortValue = Short.valueOf(str);
-        System.out.println("String '12345' to Short: " + shortValue); // Output: 12345
+        log.info("String '12345' to Short: " + shortValue); // Output: 12345
     }
 
     /**
@@ -39,7 +42,7 @@ public class ValueOfExample {
     private static void valueOfInteger() {
         String str = "123456";
         Integer intValue = Integer.valueOf(str);
-        System.out.println("String '123456' to Integer: " + intValue); // Output: 123456
+        log.info("String '123456' to Integer: " + intValue); // Output: 123456
     }
 
     /**
@@ -48,7 +51,7 @@ public class ValueOfExample {
     private static void valueOfLong() {
         String str = "123456789";
         Long longValue = Long.valueOf(str);
-        System.out.println("String '123456789' to Long: " + longValue); // Output: 123456789
+        log.info("String '123456789' to Long: " + longValue); // Output: 123456789
     }
 
     /**
@@ -57,7 +60,7 @@ public class ValueOfExample {
     private static void valueOfFloat() {
         String str = "123.45";
         Float floatValue = Float.valueOf(str);
-        System.out.println("String '123.45' to Float: " + floatValue); // Output: 123.45
+        log.info("String '123.45' to Float: " + floatValue); // Output: 123.45
     }
 
     /**
@@ -66,7 +69,7 @@ public class ValueOfExample {
     private static void valueOfDouble() {
         String str = "123.456";
         Double doubleValue = Double.valueOf(str);
-        System.out.println("String '123.456' to Double: " + doubleValue); // Output: 123.456
+        log.info("String '123.456' to Double: " + doubleValue); // Output: 123.456
     }
 
     /**
@@ -77,8 +80,8 @@ public class ValueOfExample {
         String strFalse = "false";
         Boolean boolTrue = Boolean.valueOf(strTrue);
         Boolean boolFalse = Boolean.valueOf(strFalse);
-        System.out.println("String 'true' to Boolean: " + boolTrue); // Output: true
-        System.out.println("String 'false' to Boolean: " + boolFalse); // Output: false
+        log.info("String 'true' to Boolean: " + boolTrue); // Output: true
+        log.info("String 'false' to Boolean: " + boolFalse); // Output: false
     }
 
     /**
@@ -87,7 +90,7 @@ public class ValueOfExample {
     private static void valueOfCharacter() {
         char charValue = 'A';
         Character character = Character.valueOf(charValue);
-        System.out.println("Character 'A' to Character: " + character); // Output: A
+        log.info("Character 'A' to Character: " + character); // Output: A
     }
 
     /**
@@ -98,9 +101,9 @@ public class ValueOfExample {
         try {
             String invalidNumber = "123abc";
             Integer invalidInt = Integer.valueOf(invalidNumber);
-            System.out.println("String '123abc' to Integer: " + invalidInt);
+            log.info("String '123abc' to Integer: " + invalidInt);
         } catch (NumberFormatException e) {
-            System.out.println("Exception: " + e.getMessage()); // Output: Exception: For input string: "123abc"
+            log.info("Exception: " + e.getMessage()); // Output: Exception: For input string: "123abc"
         }
 
         // Boolean valueOf with case sensitivity
@@ -108,22 +111,22 @@ public class ValueOfExample {
         String falseString = "FaLsE";
         Boolean trueBool = Boolean.valueOf(trueString);
         Boolean falseBool = Boolean.valueOf(falseString);
-        System.out.println("String 'TrUe' to Boolean: " + trueBool); // Output: true
-        System.out.println("String 'FaLsE' to Boolean: " + falseBool); // Output: false
+        log.info("String 'TrUe' to Boolean: " + trueBool); // Output: true
+        log.info("String 'FaLsE' to Boolean: " + falseBool); // Output: false
 
         // Handling whitespace
         String whiteSpaceString = " 123 ";
         Integer whiteSpaceInt = Integer.valueOf(whiteSpaceString.trim());
-        System.out.println("String ' 123 ' to Integer: " + whiteSpaceInt); // Output: 123
+        log.info("String ' 123 ' to Integer: " + whiteSpaceInt); // Output: 123
 
         // Hexadecimal parsing
         String hexString = "7F";
         Integer hexInt = Integer.valueOf(hexString, 16);
-        System.out.println("String '7F' to Integer (hex): " + hexInt); // Output: 127
+        log.info("String '7F' to Integer (hex): " + hexInt); // Output: 127
 
         // Binary parsing
         String binaryString = "1010";
         Integer binaryInt = Integer.valueOf(binaryString, 2);
-        System.out.println("String '1010' to Integer (binary): " + binaryInt); // Output: 10
+        log.info("String '1010' to Integer (binary): " + binaryInt); // Output: 10
     }
 }

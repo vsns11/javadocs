@@ -1,5 +1,8 @@
 package ca.siva.chapter01;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class TextBlockExamples {
 
     public static void main(String[] args) {
@@ -34,7 +37,7 @@ public class TextBlockExamples {
                 that spans multiple
                 lines.
                 """;
-        System.out.println("Basic Text Block:\n" + textBlock);
+        log.info("Basic Text Block:\n" + textBlock);
     }
 
     // Text block with leading and trailing whitespaces
@@ -44,7 +47,7 @@ public class TextBlockExamples {
                   Line with indentation
                 Line with trailing whitespace   
                 """;
-        System.out.println("Text Block with Whitespace:\n" + textBlock);
+        log.info("Text Block with Whitespace:\n" + textBlock);
     }
 
     // Text block with special characters
@@ -52,7 +55,7 @@ public class TextBlockExamples {
         String textBlock = """
                 Special characters: \t, \n, ", \\
                 """;
-        System.out.println("Text Block with Special Characters:\n" + textBlock);
+        log.info("Text Block with Special Characters:\n" + textBlock);
     }
 
     // Text block with formatted string
@@ -61,7 +64,7 @@ public class TextBlockExamples {
                 Hi %s,
                 Welcome to Java %d!
                 """, "Alice", 17);
-        System.out.println("Text Block with Formatted String:\n" + textBlock);
+        log.info("Text Block with Formatted String:\n" + textBlock);
     }
 
     // Error: Misaligned closing delimiter
@@ -71,8 +74,8 @@ public class TextBlockExamples {
         //         This is a text block
         //         with a misaligned closing delimiter
         //        """;
-        // System.out.println(textBlock);
-        System.out.println("Error Example: Misaligned Closing Delimiter - Uncomment to see compile-time error");
+        // log.info(textBlock);
+        log.info("Error Example: Misaligned Closing Delimiter - Uncomment to see compile-time error");
     }
 
     // Error: Illegal escape sequence
@@ -81,8 +84,8 @@ public class TextBlockExamples {
         // String textBlock = """
         //         Illegal escape sequence: \q
         //         """;
-        // System.out.println(textBlock);
-        System.out.println("Error Example: Illegal Escape Sequence - Uncomment to see compile-time error");
+        // log.info(textBlock);
+        log.info("Error Example: Illegal Escape Sequence - Uncomment to see compile-time error");
     }
 
     // Error: Unclosed text block
@@ -91,8 +94,8 @@ public class TextBlockExamples {
         // String textBlock = """
         //         This is an unclosed text block
         //        """;
-        // System.out.println(textBlock);
-        System.out.println("Error Example: Unclosed Text Block - Uncomment to see compile-time error");
+        // log.info(textBlock);
+        log.info("Error Example: Unclosed Text Block - Uncomment to see compile-time error");
     }
 
     // Text block with consistent indentation
@@ -103,7 +106,7 @@ public class TextBlockExamples {
                 Line 2
                 Line 3
                 """;
-        System.out.println("Consistent Indentation:\n" + textBlock);
+        log.info("Consistent Indentation:\n" + textBlock);
     }
 
     // Text block with inconsistent indentation
@@ -113,7 +116,7 @@ public class TextBlockExamples {
                     Line 2
                 Line 3
                 """;
-        System.out.println("Inconsistent Indentation:\n" + textBlock);
+        log.info("Inconsistent Indentation:\n" + textBlock);
     }
 
     // Preserving whitespace explicitly
@@ -123,7 +126,7 @@ public class TextBlockExamples {
                 Line 2\s
                 Line 3\s
                 """;
-        System.out.println("Preserving Whitespace:\n" + textBlock);
+        log.info("Preserving Whitespace:\n" + textBlock);
     }
 
     // Preserving new lines explicitly
@@ -136,13 +139,13 @@ public class TextBlockExamples {
                 Line 3
                 
                 """;
-        System.out.println("Preserving New Lines:\n" + textBlock);
+        log.info("Preserving New Lines:\n" + textBlock);
     }
 
     //Compilation Error case where quotes text is defined next
     public void captureInitializationError() {
 //        String textBlock = """Line""";
-//        System.out.println("captureInitializationError:\n" + textBlock);
+//        log.info("captureInitializationError:\n" + textBlock);
     }
 
     // Example: Regular String vs. Text Block with escape sequences
@@ -151,8 +154,8 @@ public class TextBlockExamples {
         String textBlock = """
                 " "
                 """;
-        System.out.println("Regular String with escaped quotes: " + regularString);
-        System.out.println("Text Block with quotes: " + textBlock);
+        log.info("Regular String with escaped quotes: " + regularString);
+        log.info("Text Block with quotes: " + textBlock);
     }
 
     // Example: Omitting new line using \ at end of line
@@ -162,7 +165,7 @@ public class TextBlockExamples {
                 that omits new lines \
                 using backslashes.
                 """;
-        System.out.println("Text Block omitting new lines:\n" + textBlock);
+        log.info("Text Block omitting new lines:\n" + textBlock);
     }
 
     // Example: Spaces at the end of lines
@@ -172,8 +175,8 @@ public class TextBlockExamples {
                 Line with space at end \
                 Line without space at end
                 """;
-        System.out.println("Regular String with space at end: '" + regularString + "'");
-        System.out.println("Text Block with and without spaces at end:\n'" + textBlock + "'");
+        log.info("Regular String with space at end: '" + regularString + "'");
+        log.info("Text Block with and without spaces at end:\n'" + textBlock + "'");
     }
 
     //Example: Always draw a vertical access at non-null character(including the quotes),
@@ -184,7 +187,7 @@ public class TextBlockExamples {
                 green
                 yellow
             """;
-        System.out.println("Text Block with and without spaces at end:\n'" + textBlock + "'");
+        log.info("Text Block with and without spaces at end:\n'" + textBlock + "'");
     }
 
 
@@ -195,6 +198,6 @@ public class TextBlockExamples {
                 Line with one space\s
                 Line with no space
                 """;
-        System.out.println("Text Block preserving spaces:\n'" + textBlock + "'");
+        log.info("Text Block preserving spaces:\n'" + textBlock + "'");
     }
 }

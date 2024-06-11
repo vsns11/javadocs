@@ -1,5 +1,7 @@
 package ca.siva.chapter03;
 
+import lombok.extern.slf4j.Slf4j;
+
 // Interface with various kinds of methods and modifiers
 /*
   NOTE:
@@ -7,6 +9,8 @@ package ca.siva.chapter03;
   2) When 2 interfaces contains same method, always same default method's returntype should be same (if different means can't compile).
   Also, if given in the class with same method, that will get overriden at runtime.
   In order to access interface method, use <Interface>.<method>()
+  3) To extend step 2, if method names are same in 2 interfaces and the same method is not overridden in class, then it won't compile.
+
  */
 interface ExampleInterface {
 

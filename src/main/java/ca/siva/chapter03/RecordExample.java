@@ -1,5 +1,7 @@
 package ca.siva.chapter03;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -13,7 +15,12 @@ They cannot be extended because they are implicitly final, which means they cann
     as fields are final always so value need to be provided always at the time of initialization.
 5) "sealed" classes will tell which classes or interfaces are allowed to extend/implement a given class.
 6) "final" means the subclass cannot be extended by other classes
+7) Setting a value in compact constructor is not allowed.
+8) In a compact constructor, the main use of it is to have checks before the field assignment.
+Records automatically generates the assignment initialization in the compact constructor at the end.
+
  */
+@Slf4j
 public class RecordExample {
 
     public static void main(String[] args) {
@@ -35,7 +42,7 @@ public class RecordExample {
     // 1. Basic record example
     public static void basicRecordExample() {
         Person person = new Person("Alice", 30, Gender.FEMALE);
-        System.out.println("Basic record example: " + person);
+        log.info("Basic record example: " + person);
     }
 
     // 2. Using records in collections
@@ -45,18 +52,18 @@ public class RecordExample {
         people.add(new Person("Bob", 25, Gender.MALE));
         people.add(new Person("Carol", 35, Gender.FEMALE));
 
-        System.out.println("Records in collections example:");
+        log.info("Records in collections example:");
         for (Person person : people) {
-            System.out.println(person);
+            log.info("{}", person);
         }
     }
 
     // 3. Using records with pattern matching and instanceof
     public static void recordWithPatternMatchingExample(Object obj) {
         if (obj instanceof Person p) {
-            System.out.println("Pattern matching with instanceof: " + p.name() + " is " + p.age() + " years old and is " + p.gender());
+            log.info("Pattern matching with instanceof: " + p.name() + " is " + p.age() + " years old and is " + p.gender());
         } else {
-            System.out.println("Unknown object type.");
+            log.info("Unknown object type.");
         }
     }
 
@@ -67,7 +74,7 @@ public class RecordExample {
             case "Bob" -> "Person is Bob";
             default -> "Person is someone else";
         };
-        System.out.println("Record in switch example: " + description);
+        log.info("Record in switch example: " + description);
     }
 
     // 5. Demonstrating records in nested loops with labels
@@ -77,24 +84,24 @@ public class RecordExample {
         outerLoop:
         for (Person person : people) {
             if (person.name().equals(skipName)) {
-                System.out.println("Skipping person: " + person);
+                log.info("Skipping person: " + person);
                 continue outerLoop; // Use label to skip processing this person
             }
-            System.out.println("Processing person: " + person);
+            log.info("Processing person: " + person);
 
             for (int i = 0; i < 3; i++) {
                 if (i == 1 && person.name().equals("Alice")) {
-                    System.out.println("Breaking inner loop for: " + person);
+                    log.info("Breaking inner loop for: " + person);
                     break; // Break inner loop
                 }
-                System.out.println("Inner loop iteration " + i + " for: " + person);
+                log.info("Inner loop iteration " + i + " for: " + person);
             }
         }
     }
 
     // 6. Static variables example
     public static void staticVariableExample() {
-        System.out.println("Total Persons created: " + Person.personCount);
+        log.info("Total Persons created: " + Person.personCount);
     }
 
     // 7. Records implementing interfaces
@@ -116,7 +123,7 @@ public class RecordExample {
         // Static initializer
         static {
             personCount++;
-            System.out.println("Executing the static initializer");
+            log.info("Executing the static initializer");
         }
 
         // Constructor with additional validation
@@ -129,7 +136,7 @@ public class RecordExample {
         // Implementing the interface method
         @Override
         public void greet() {
-            System.out.println("Hello, my name is " + name + " and I am " + age + " years old.");
+            log.info("Hello, my name is " + name + " and I am " + age + " years old.");
         }
     }
 

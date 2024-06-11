@@ -1,5 +1,7 @@
 package ca.siva.chapter03;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
 Note:
 1) Inline Initialization (Instance Variables): Instance variables are initialized first, in the order they are declared.
@@ -7,6 +9,7 @@ Instance Initializer Blocks: These blocks are executed next, in the order they a
 Constructor: Finally, the constructor is executed.
 
  */
+@Slf4j
 public class InitializerExamples {
     // Static variable
     private static String staticVariable;
@@ -17,39 +20,39 @@ public class InitializerExamples {
     // Static initializer block
     static {
         staticVariable = "Initialized in static initializer";
-        System.out.println("Static initializer executed.");
+        log.info("Static initializer executed.");
     }
 
     // Instance initializer block
     {
         instanceVariable = "Initialized in instance initializer";
-        System.out.println("Instance initializer executed.");
+        log.info("Instance initializer executed.");
     }
 
     // Constructor
     public InitializerExamples(String value) {
         instanceVariable = value;
-        System.out.println("Constructor executed.");
+        log.info("Constructor executed.");
     }
 
     // Method to demonstrate that instance initializers cannot be used within methods
     public void methodWithLocalClass() {
-        System.out.println("-- ENTER methodWithLocalClass() --");
+        log.info("-- ENTER methodWithLocalClass() --");
         // Local variable
         final String localVariable = "Local Variable";
 
         // Local class
         class LocalClass {
             public void display() {
-                System.out.println(localVariable); // Accesses local variable
-                System.out.println(instanceVariable); // Accesses instance member
-                System.out.println(staticVariable); // Accesses static member
+                log.info(localVariable); // Accesses local variable
+                log.info(instanceVariable); // Accesses instance member
+                log.info(staticVariable); // Accesses static member
             }
         }
 
         LocalClass local = new LocalClass();
         local.display();
-        System.out.println("-- EXIT methodWithLocalClass() --");
+        log.info("-- EXIT methodWithLocalClass() --");
     }
 
     // Method to demonstrate that instance initializers cannot be used within methods
@@ -61,9 +64,9 @@ public class InitializerExamples {
         Runnable anonymousClass = new Runnable() {
             @Override
             public void run() {
-                System.out.println(localVariable); // Accesses local variable
-                System.out.println(instanceVariable); // Accesses instance member
-                System.out.println(staticVariable); // Accesses static member
+                log.info(localVariable); // Accesses local variable
+                log.info(instanceVariable); // Accesses instance member
+                log.info(staticVariable); // Accesses static member
             }
         };
 
@@ -72,19 +75,19 @@ public class InitializerExamples {
 
     public static void testStaticInitializer() {
         {
-            System.out.println("Inside an initializer#1");
+            log.info("Inside an initializer#1");
         }
         {
-            System.out.println("Inside an initializer#2");
+            log.info("Inside an initializer#2");
         }
     }
 
     public void testInitializer() {
         {
-            System.out.println("Inside an initializer#1");
+            log.info("Inside an initializer#1");
         }
         {
-            System.out.println("Inside an initializer#2");
+            log.info("Inside an initializer#2");
         }
     }
     public static void main(String[] args) {

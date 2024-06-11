@@ -1,5 +1,8 @@
 package ca.siva.chapter01;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MathMethodsExamples {
 
     // Returns the absolute value of an int value
@@ -129,29 +132,29 @@ public class MathMethodsExamples {
         MathMethodsExamples examples = new MathMethodsExamples();
 
         // Demonstrate each method
-        System.out.println("abs(-10): " + examples.exampleAbsInt(-10));
-        System.out.println("abs(-10.5): " + examples.exampleAbsDouble(-10.5));
-        System.out.println("max(5, 10): " + examples.exampleMaxInt(5, 10));
-        System.out.println("max(5.5, 10.5): " + examples.exampleMaxDouble(5.5, 10.5));
-        System.out.println("min(5, 10): " + examples.exampleMinInt(5, 10));
-        System.out.println("min(5.5, 10.5): " + examples.exampleMinDouble(5.5, 10.5));
-        System.out.println("cos(Math.PI): " + examples.exampleCos(Math.PI));
-        System.out.println("sin(Math.PI): " + examples.exampleSin(Math.PI));
-        System.out.println("tan(Math.PI): " + examples.exampleTan(Math.PI));
-        System.out.println("acos(1.0): " + examples.exampleAcos(1.0));
-        System.out.println("asin(1.0): " + examples.exampleAsin(1.0));
-        System.out.println("atan(1.0): " + examples.exampleAtan(1.0));
-        System.out.println("pow(2, 3): " + examples.examplePow(2, 3));
-        System.out.println("sqrt(16): " + examples.exampleSqrt(16));
-        System.out.println("log(Math.E): " + examples.exampleLog(Math.E));
-        System.out.println("log10(100): " + examples.exampleLog10(100));
-        System.out.println("ceil(5.1): " + examples.exampleCeil(5.1));
-        System.out.println("floor(5.9): " + examples.exampleFloor(5.9));
-        System.out.println("round(5.5f): " + examples.exampleRoundFloat(5.5f));
-        System.out.println("round(5.5): " + examples.exampleRoundDouble(5.5));
-        System.out.println("getExponent(1024.0): " + examples.exampleGetExponentDouble(1024.0));
-        System.out.println("getExponent(1024.0f): " + examples.exampleGetExponentFloat(1024.0f));
-        System.out.println("toDegrees(Math.PI): " + examples.exampleToDegrees(Math.PI));
-        System.out.println("toRadians(180): " + examples.exampleToRadians(180));
+        log.info("abs(-10): " + examples.exampleAbsInt(-10));
+        log.info("abs(-10.5): " + examples.exampleAbsDouble(-10.5));
+        log.info("max(5, 10): " + examples.exampleMaxInt(5, 10));
+        log.info("max(5.5, 10.5): " + examples.exampleMaxDouble(5.5, 10.5));
+        log.info("min(5, 10): " + examples.exampleMinInt(5, 10));
+        log.info("min(5.5, 10.5): " + examples.exampleMinDouble(5.5, 10.5));
+        log.info("cos(Math.PI): " + examples.exampleCos(Math.PI));
+        log.info("sin(Math.PI): " + examples.exampleSin(Math.PI));
+        log.info("tan(Math.PI): " + examples.exampleTan(Math.PI));
+        log.info("acos(1.0): " + examples.exampleAcos(1.0));
+        log.info("asin(1.0): " + examples.exampleAsin(1.0));
+        log.info("atan(1.0): " + examples.exampleAtan(1.0));
+        log.info("pow(2, 3): " + examples.examplePow(2, 3));
+        log.info("sqrt(16): " + examples.exampleSqrt(16));
+        log.info("log(Math.E): " + examples.exampleLog(Math.E));
+        log.info("log10(100): " + examples.exampleLog10(100));
+        log.info("ceil(5.1): " + examples.exampleCeil(5.1));
+        log.info("floor(5.9): " + examples.exampleFloor(5.9));
+        log.info("round(5.5f): " + examples.exampleRoundFloat(5.5f));
+        log.info("round(5.5): " + examples.exampleRoundDouble(5.5));
+        log.info("getExponent(1024.0): " + examples.exampleGetExponentDouble(1024.0));
+        log.info("getExponent(1024.0f): " + examples.exampleGetExponentFloat(1024.0f));
+        log.info("toDegrees(Math.PI): " + examples.exampleToDegrees(Math.PI));
+        log.info("toRadians(180): " + examples.exampleToRadians(180));
     }
 }

@@ -1,8 +1,12 @@
 package ca.siva.chapter03;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  NOTE:
   1) A class defined in permits must extend its parent class.
+  2) A sealed applied to a class does not have to define permits if all the subclasses are defined in the same class file.
+  3) Nested static classes can also have sealed, non-sealed and final modifiers.
  */
 // Correct scenario: Declaring a sealed class with permitted subclasses
 abstract sealed class Shape permits Circle, Square, Triangle {
@@ -84,25 +88,54 @@ public final class Rectangle {
 }
 */
 
+
+sealed class Shape1 {
+    public sealed class Circle1 extends Shape1 {
+        public final class CircleSegment extends Circle1 {}
+    }
+
+    public final class Rectangle extends Shape1 {}
+
+    public sealed class Triangle1 extends Shape1 permits Triangle1.RightTriangle1 {
+        public final class RightTriangle1 extends Triangle1 {}
+    }
+}
+
+
+sealed class Outer permits Outer.Inner1, Outer.Inner2 {
+    public static final class Inner1 extends Outer {}
+
+    public static sealed class Inner2 extends Outer permits Outer.Inner3 {
+        // Inner3 is a nested static class permitted to extend Inner2
+    }
+
+    public static non-sealed class Inner3 extends Inner2 {
+        // Inner3 is non-sealed and can have subclasses
+    }
+}
+
+
 // Main class to test the implementation
+@Slf4j
 public class SealedClassExample {
     public static void main(String[] args) {
         // Correct usage: Instances of permitted subclasses
         Shape circle = new Circle(5);
-        System.out.println("Circle area: " + circle.area());
+        log.info("Circle area: " + circle.area());
 
         Shape square = new Square(4);
-        System.out.println("Square area: " + square.area());
+        log.info("Square area: " + square.area());
 
         Shape triangle = new Triangle(3, 6);
-        System.out.println("Triangle area: " + triangle.area());
+        log.info("Triangle area: " + triangle.area());
 
         Shape equilateralTriangle = new EquilateralTriangle(3);
-        System.out.println("Equilateral Triangle area: " + equilateralTriangle.area());
+        log.info("Equilateral Triangle area: " + equilateralTriangle.area());
 
         // Incorrect usage: Attempting to instantiate a non-permitted subclass (if it were allowed)
         // Uncommenting the following lines will cause a compilation error if Rectangle is listed in permits
         // Shape rectangle = new Rectangle(4, 5);
-        // System.out.println("Rectangle area: " + rectangle.area());
+        // log.info("Rectangle area: " + rectangle.area());
     }
 }
+

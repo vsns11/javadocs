@@ -6,6 +6,8 @@ package ca.siva.chapter01;
 
  */
 
+import lombok.extern.slf4j.Slf4j;
+
 // Custom enum representing months
 enum CustomMonth {
     JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER;
@@ -29,48 +31,49 @@ enum Color {
     }
 }
 
+@Slf4j
 public class EnumExamples {
 
     // Example of using name() method
     public static void usingNameMethod() {
         CustomMonth month = CustomMonth.MAY;
-        System.out.println("Name: " + month.name());
+        log.info("Name: " + month.name());
     }
 
     // Example of using ordinal() method
     public static void usingOrdinalMethod() {
         CustomMonth month = CustomMonth.MAY;
-        System.out.println("Ordinal: " + month.ordinal());
+        log.info("Ordinal: " + month.ordinal());
     }
 
     // Example of using valueOf() method
     public static void usingValueOfMethod() {
         CustomMonth month = CustomMonth.valueOf("MAY");
-        System.out.println("Month from valueOf: " + month);
+        log.info("Month from valueOf: " + month);
     }
 
     // Example of custom method in enum
     public static void usingCustomMethod() {
         CustomMonth month = CustomMonth.MAY;
-        System.out.println("Custom Month Display: " + month.getDisplayName());
+        log.info("Custom Month Display: " + month.getDisplayName());
     }
 
     // Example of using static final field in enum
     public static void usingStaticFinalField() {
-        System.out.println("Default Color: " + Color.DEFAULT_COLOR);
-        System.out.println("Default Color Description: " + Color.DEFAULT_COLOR.getDescription());
+        log.info("Default Color: " + Color.DEFAULT_COLOR);
+        log.info("Default Color Description: " + Color.DEFAULT_COLOR.getDescription());
     }
 
     // Example of iterating over enum constants
     public static void iterateOverEnumConstants() {
-        System.out.println("Iterating over CustomMonth:");
+        log.info("Iterating over CustomMonth:");
         for (CustomMonth month : CustomMonth.values()) {
-            System.out.println(month + ": " + month.getDisplayName());
+            log.info(month + ": " + month.getDisplayName());
         }
 
-        System.out.println("Iterating over Color:");
+        log.info("Iterating over Color:");
         for (Color color : Color.values()) {
-            System.out.println(color + ": " + color.getDescription());
+            log.info(color + ": " + color.getDescription());
         }
     }
 

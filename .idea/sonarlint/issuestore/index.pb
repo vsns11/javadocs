@@ -59,3 +59,7 @@ g
 7src/main/java/ca/siva/chapter03/SealedClassExample.java,6/8/68fab4ae2cc3178eeed37568776e402412ee784b
 m
 =src/main/java/ca/siva/chapter03/MethodOverloadingExample.java,c/e/ce5aef8c750af9872bd42b4e849293c1a2f0f3c8
+c
+3src/main/java/ca/siva/chapter03/VarargsExample.java,9/8/98d8733d18de0730163aef329c772e6c0d3842b3
+g
+7src/main/java/ca/siva/chapter03/InheritanceExample.java,d/6/d6ac27498dfd45ddf15629d9ab9abf3388dbc1fe

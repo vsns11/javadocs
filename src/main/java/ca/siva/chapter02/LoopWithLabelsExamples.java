@@ -1,5 +1,8 @@
 package ca.siva.chapter02;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class LoopWithLabelsExamples {
 
     public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class LoopWithLabelsExamples {
         positiveNumberSearch:
         while (i < numbers.length) {
             if (numbers[i] > 0) {
-                System.out.println("First positive number (while loop): " + numbers[i]);
+                log.info("First positive number (while loop): " + numbers[i]);
                 break positiveNumberSearch; // Use label to break out of the loop
             }
             i++;
@@ -27,13 +30,13 @@ public class LoopWithLabelsExamples {
     public static void findFirstPositiveNumberInDoWhileLoop(int[] numbers) {
         int i = 0;
         if (numbers.length == 0) {
-            System.out.println("No positive number found (do-while loop): -1");
+            log.info("No positive number found (do-while loop): -1");
             return;
         }
         positiveNumberSearch:
         do {
             if (numbers[i] > 0) {
-                System.out.println("First positive number (do-while loop): " + numbers[i]);
+                log.info("First positive number (do-while loop): " + numbers[i]);
                 break positiveNumberSearch; // Use label to break out of the loop
             }
             i++;
@@ -45,7 +48,7 @@ public class LoopWithLabelsExamples {
         positiveNumberSearch:
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i] > 0) {
-                System.out.println("First positive number (for loop): " + numbers[i]);
+                log.info("First positive number (for loop): " + numbers[i]);
                 break positiveNumberSearch; // Use label to break out of the loop
             }
         }
@@ -57,10 +60,10 @@ public class LoopWithLabelsExamples {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i == 1 && j == 1) {
-                    System.out.println("Breaking out of outer loop at i=" + i + ", j=" + j);
+                    log.info("Breaking out of outer loop at i=" + i + ", j=" + j);
                     break outerLoop; // Use label to break out of the outer loop
                 }
-                System.out.println("i=" + i + ", j=" + j);
+                log.info("i=" + i + ", j=" + j);
             }
         }
     }
@@ -71,10 +74,10 @@ public class LoopWithLabelsExamples {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i == 1 && j == 1) {
-                    System.out.println("Continuing outer loop at i=" + i + ", j=" + j);
+                    log.info("Continuing outer loop at i=" + i + ", j=" + j);
                     continue outerLoop; // Use label to continue the outer loop
                 }
-                System.out.println("i=" + i + ", j=" + j);
+                log.info("i=" + i + ", j=" + j);
             }
         }
     }
