@@ -10,10 +10,15 @@ import lombok.extern.slf4j.Slf4j;
   Also, if given in the class with same method, that will get overriden at runtime.
   In order to access interface method, use <Interface>.<method>()
   3) To extend step 2, if method names are same in 2 interfaces and the same method is not overridden in class, then it won't compile.
+  4) Private method cannot be called in a static method.
+  5) It is not mandatory for the class to override a default method that's defined in an interface.
 
  */
 interface ExampleInterface {
 
+    static void testSameMethod() {
+
+    }
     String CONSTA = "a";
 
     // Abstract method (implicitly public and abstract)
@@ -55,6 +60,9 @@ interface AnotherInterface {
     default void defaultMethod() {
         System.out.println("This is a default method from AnotherInterface.");
     }
+    static void testSameMethod() {
+
+    }
 }
 
 // Class implementing both interfaces
@@ -74,7 +82,16 @@ public class InterfaceExample implements ExampleInterface, AnotherInterface {
 
     // New method with the same name but different signature
     public void defaultMethod(String... args) {
+        //This is the right way to call the specific interface method using super.
+        ExampleInterface.super.defaultMethod();
         System.out.println("Method with varargs: " + String.join(", ", args));
+    }
+
+    private static void testSameMethod2() {
+        // This will not compile because you have to define which method this call need to happen for
+        //testSameMethod();
+        ExampleInterface.testSameMethod(); // this works
+        AnotherInterface.testSameMethod(); // this works
     }
 
     // Resolving the conflict by explicitly calling the default method from AnotherInterface

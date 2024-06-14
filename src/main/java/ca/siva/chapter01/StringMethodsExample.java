@@ -2,6 +2,11 @@ package ca.siva.chapter01;
 
 import lombok.extern.slf4j.Slf4j;
 
+/*
+NOTE:
+  1) String literals are stored in stringPool. Also, known as intern-pool.
+  2) Equals() checks whether the content is matched or not and it's case-sensitive.
+ */
 @Slf4j
 public class StringMethodsExample {
 

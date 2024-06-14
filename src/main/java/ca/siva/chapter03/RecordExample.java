@@ -11,15 +11,18 @@ NOTE:
 They cannot be extended because they are implicitly final, which means they cannot be subclassed.
 2) However, it can implement interfaces.
 3) All the fields declared in Record are final declared variables.
-4) Records does not allow instance initializers as well,
+4) Records do not allow instance initializers as well,
     as fields are final always so value need to be provided always at the time of initialization.
 5) "sealed" classes will tell which classes or interfaces are allowed to extend/implement a given class.
-6) "final" means the subclass cannot be extended by other classes
-7) Setting a value in compact constructor is not allowed.
+6) "final" means the subclass cannot be extended by other classes.
+7) Setting a value in a compact constructor is allowed.
 8) In a compact constructor, the main use of it is to have checks before the field assignment.
-Records automatically generates the assignment initialization in the compact constructor at the end.
-
+Records automatically generate the assignment initialization in the compact constructor at the end.
+9) Only one compact constructor should need to be defined per class.
+10) The compact constructor is called before the canonical constructor, ensuring that validation and logic are executed first,
+followed by the actual assignment of field values.
  */
+
 @Slf4j
 public class RecordExample {
 
@@ -33,7 +36,10 @@ public class RecordExample {
         recordWithLabelsExample(List.of(
                 new Person("Alice", 30, Gender.FEMALE),
                 new Person("Bob", 25, Gender.MALE),
-                new Person("Carol", 35, Gender.FEMALE)
+                new Person("Carol", 35, Gender.FEMALE),
+                new Person("Siva", 27, Gender.MALE),
+                new Person("John", -1), // Example with negative age
+                new Person("Jane") // Example with name only
         ));
         staticVariableExample();
         recordImplementingInterfaceExample();
@@ -126,11 +132,34 @@ public class RecordExample {
             log.info("Executing the static initializer");
         }
 
-        // Constructor with additional validation
+        // Compact Constructor with additional validation and assignment
         public Person {
+            log.info("Inside compact constructor");
             if (age < 0) {
-                throw new IllegalArgumentException("Age cannot be negative");
+                log.warn("Age is negative, setting age to 0");
+                age = 0; // Assignment within the compact constructor
             }
+            if (name == null || name.isBlank()) {
+                throw new IllegalArgumentException("Name cannot be null or blank");
+            }
+        }
+
+        //This is how you can override the getter inside a record.
+
+        @Override
+        public int age() {
+            return age;
+        }
+
+        // Custom Constructor (name only)
+        public Person(String name) {
+            this(name, 0, Gender.OTHER); // Delegate to canonical constructor with default values
+            log.info("Using custom constructor with name only");
+        }
+
+        // Constructor with transformations (optional)
+        public Person(String name, int age) {
+            this(name, age, Gender.OTHER); // Default gender to OTHER
         }
 
         // Implementing the interface method
