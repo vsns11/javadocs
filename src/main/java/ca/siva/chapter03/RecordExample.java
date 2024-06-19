@@ -8,19 +8,25 @@ import java.util.ArrayList;
 /*
 NOTE:
 1) Record cannot extend other classes because it implicitly extends abstract Record class.
-They cannot be extended because they are implicitly final, which means they cannot be subclassed.
+   They cannot be extended because they are implicitly final, which means they cannot be subclassed.
 2) However, it can implement interfaces.
 3) All the fields declared in Record are final declared variables.
 4) Records do not allow instance initializers as well,
-    as fields are final always so value need to be provided always at the time of initialization.
+   as fields are final always so value need to be provided always at the time of initialization.
 5) "sealed" classes will tell which classes or interfaces are allowed to extend/implement a given class.
 6) "final" means the subclass cannot be extended by other classes.
 7) Setting a value in a compact constructor is allowed.
 8) In a compact constructor, the main use of it is to have checks before the field assignment.
-Records automatically generate the assignment initialization in the compact constructor at the end.
+   Records automatically generate the assignment initialization in the compact constructor at the end.
 9) Only one compact constructor should need to be defined per class.
 10) The compact constructor is called before the canonical constructor, ensuring that validation and logic are executed first,
-followed by the actual assignment of field values.
+    followed by the actual assignment of field values.
+11) Example of sealed classes:
+    public sealed interface Time permits Hour, Minute, Second {}
+    record Hour() implements Time {}
+    interface Minute extends Time {}
+    non-sealed class Second implements Time {}
+    class Micro extends Second {}
  */
 
 @Slf4j
@@ -43,6 +49,7 @@ public class RecordExample {
         ));
         staticVariableExample();
         recordImplementingInterfaceExample();
+        new RecordExample().sealedClassExample();
     }
 
     // 1. Basic record example
@@ -116,6 +123,19 @@ public class RecordExample {
         greeter.greet();
     }
 
+    // 8. Example of sealed classes and interfaces
+    public void sealedClassExample() {
+        Time hour = new Hour();
+        Time minute = new Minute() {};
+        Time second = new Second();
+        Second micro = new Micro();
+
+        log.info("Sealed class example: Hour instance created: {}", hour);
+        log.info("Sealed class example: Minute instance created: {}", minute);
+        log.info("Sealed class example: Second instance created: {}", second);
+        log.info("Sealed class example: Micro instance created: {}", micro);
+    }
+
     // Interface definition
     public interface Greetable {
         void greet();
@@ -173,4 +193,15 @@ public class RecordExample {
     public enum Gender {
         MALE, FEMALE, OTHER
     }
+
+    // Sealed interface and classes example
+    public sealed interface Time permits Hour, Minute, Second {}
+
+    public record Hour() implements Time {}
+
+    public non-sealed interface Minute extends Time {}
+
+    public non-sealed class Second implements Time {}
+
+    public class Micro extends Second {}
 }

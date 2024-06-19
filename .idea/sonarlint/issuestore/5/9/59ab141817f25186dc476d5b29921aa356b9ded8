@@ -1,45 +1,9 @@
 
-Y
-java:S2589x"7Remove this expression which always evaluates to "true"(ê‚à‡øÿÿÿÿ8°À¢‰û1
-T
-java:S2589~"7Remove this expression which always evaluates to "true"(íğéê8°À¢‰û1
-L	java:S106"+Replace this use of System.out by a logger.(¨ææâüÿÿÿÿ8»À¢‰û1
-G	java:S106"+Replace this use of System.out by a logger.(šÆˆ«8»À¢‰û1
-G	java:S106"+Replace this use of System.out by a logger.(ĞœÙä8¼À¢‰û1
-G	java:S106	"+Replace this use of System.out by a logger.(¢î¢Ğ8¼À¢‰û1
-G	java:S106
-"+Replace this use of System.out by a logger.(Éœª×8¼À¢‰û1
-F	java:S106"+Replace this use of System.out by a logger.(ÛÚÄ+8¾À¢‰û1
-L	java:S106"+Replace this use of System.out by a logger.(ÕÁÍˆøÿÿÿÿ8¾À¢‰û1
-G	java:S106"+Replace this use of System.out by a logger.(˜­„½8¿À¢‰û1
-L	java:S106"+Replace this use of System.out by a logger.(š±¸©ıÿÿÿÿ8¿À¢‰û1
-G	java:S106"+Replace this use of System.out by a logger.(îÅ¤8¿À¢‰û1
-L	java:S106"+Replace this use of System.out by a logger.(Çòá™ıÿÿÿÿ8ÁÀ¢‰û1
-G	java:S106"+Replace this use of System.out by a logger.(è±¤ì8ÂÀ¢‰û1
-L	java:S106"+Replace this use of System.out by a logger.(ÌÇÈûÿÿÿÿ8ÃÀ¢‰û1
-F	java:S106"+Replace this use of System.out by a logger.(Ì‡Ç8ÄÀ¢‰û1
-L	java:S106"+Replace this use of System.out by a logger.(è«úÙùÿÿÿÿ8º¾£‰û1
-G	java:S106"+Replace this use of System.out by a logger.(¥ï†À8¼¾£‰û1
-G	java:S106"+Replace this use of System.out by a logger.(æº8¼¾£‰û1
-F	java:S106-"+Replace this use of System.out by a logger.(­Şãj8½¾£‰û1
-L	java:S1069"+Replace this use of System.out by a logger.(Ü‹”íüÿÿÿÿ8½¾£‰û1
-G	java:S106A"+Replace this use of System.out by a logger.(§­š8½¾£‰û1
-L	java:S106H"+Replace this use of System.out by a logger.(ÀØò±ÿÿÿÿÿ8¾¾£‰û1
-G	java:S106P"+Replace this use of System.out by a logger.(Ò±ÂÖ8¾¾£‰û1
 g
-java:S1764W"KCorrect one of the identical sub-expressions on both sides of operator "<="(øîä8¾À¢‰û1
-L	java:S106Z"+Replace this use of System.out by a logger.(„Ë©²ıÿÿÿÿ8¾¾£‰û1
+java:S1764Z"KCorrect one of the identical sub-expressions on both sides of operator "<="(øîä8¾À¢‰û1
 m
-java:S1764_"KCorrect one of the identical sub-expressions on both sides of operator "=="(¿¿»ùÿÿÿÿ8¾À¢‰û1
-L	java:S106a"+Replace this use of System.out by a logger.(¡¬àùÿÿÿÿ8¿¾£‰û1
-G	java:S106g"+Replace this use of System.out by a logger.(¯–Üš8¿¾£‰û1
-G	java:S106m"+Replace this use of System.out by a logger.(íÁ˜À8¿¾£‰û1
-L	java:S106s"+Replace this use of System.out by a logger.(¬ïñëøÿÿÿÿ8À¾£‰û1
+java:S1764b"KCorrect one of the identical sub-expressions on both sides of operator "=="(¿¿»ùÿÿÿÿ8¾À¢‰û1
 J
-java:S1125x"(Remove the unnecessary boolean literals.(ê‚à‡øÿÿÿÿ8ÁÀ¢‰û1
-L	java:S106y"+Replace this use of System.out by a logger.(æ¯‘©şÿÿÿÿ8À¾£‰û1
-E
-java:S1125~"(Remove the unnecessary boolean literals.(íğéê8ÂÀ¢‰û1
-G	java:S106"+Replace this use of System.out by a logger.(š‹ã‹8À¾£‰û1
-M	java:S106…"+Replace this use of System.out by a logger.(¬¸›Ïøÿÿÿÿ8ˆëƒŠû1
-M	java:S106"+Replace this use of System.out by a logger.(’È‰Ÿùÿÿÿÿ8Õ…Šû1
+java:S1125{"(Remove the unnecessary boolean literals.(ê‚à‡øÿÿÿÿ8ÁÀ¢‰û1
+F
+java:S1125"(Remove the unnecessary boolean literals.(íğéê8ÂÀ¢‰û1

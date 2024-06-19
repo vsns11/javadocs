@@ -7,11 +7,13 @@ import lombok.extern.slf4j.Slf4j;
   NOTE:
   1) `In interface, declared variables are implicitly public static final`
   2) When 2 interfaces contains same method, always same default method's returntype should be same (if different means can't compile).
-  Also, if given in the class with same method, that will get overriden at runtime.
+  Also, if given in the class with same method, that will get override at runtime.
   In order to access interface method, use <Interface>.<method>()
   3) To extend step 2, if method names are same in 2 interfaces and the same method is not overridden in class, then it won't compile.
+    However, it also won't work for having the method with the same name and different return type.
   4) Private method cannot be called in a static method.
   5) It is not mandatory for the class to override a default method that's defined in an interface.
+  6) In Java, you can define abstract methods in an interface. However, there are specific methods from the Object class (such as toString(), hashCode(), equals(), etc.) that you cannot declare as abstract methods in an interface. This is because every class in Java implicitly extends Object, and thus, these methods are always available. T
 
  */
 interface ExampleInterface {

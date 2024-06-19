@@ -20,8 +20,13 @@ it can leave the method not implemented and let the actual class that extends th
 10) You cannot define a static method and an instance method with the same name. The code will not compile.
 11) In Java, the term package-private (or default access level) refers to a method, variable, or class member that is accessible only within its own package. It is not accessible from any other package, including subpackages.
 12) In Java, when a constructor in a child class calls another constructor of the same class using this(args), the call to the superclass constructor (super()) is not automatically inserted.
-
+13) In nested classes, when referring to variables with the same name, `this` refers to the innermost class variable,
+    `OuterClassName.this` refers to the variable in the outer class, and `OuterClassName.InnerClassName.this` refers to the variable in the intermediate inner class.
+14) To access instance variables in lambda expressions, they need to be effectively final or explicitly final rule applies to local variables within the enclosing scope of the lambda. However, instance variables (fields of the class) and static variables do not have this restriction and can be accessed and modified freely within the lambda.
+15) Static methods are not apply for polymorphism by instance classes.
+16) In case of abstract class static method, method would be overridden.
  */
+
 @Slf4j
 public class ClassExample {
     // Outer class variables
@@ -47,28 +52,32 @@ public class ClassExample {
     }
 
     // Scenario from the image
-    public static void abstractUseCase() {
-        interface CanBurrow {
-            void burrow();
-        }
+    public static void nestedClassUseCase() {
+        class Matrix {
+            private int level = 1;
 
-        @FunctionalInterface
-        interface HasHardShell extends CanBurrow {
-        }
+            class Deep {
+                private int level = 2;
 
-        abstract class Tortoise implements HasHardShell {
-            public abstract int toughness();
-        }
+                class Deeper {
+                    private int level = 5;
 
-        class DesertTortoise extends Tortoise {
-            public int toughness() {
-                return 11;
+                    public void printReality(int level) {
+                        System.out.print(this.level + " ");          // this.level refers to Deeper's level
+                        System.out.print(Matrix.Deep.this.level + " "); // Matrix.Deep.this.level refers to Deep's level
+                        System.out.print(Deep.this.level);           // Deep.this.level also refers to Deep's level
+                    }
+                }
             }
 
-            public void burrow() {
-                // Implementation of burrow method
+            public static void main(String[] bots) {
+                Matrix.Deep.Deeper simulation = new Matrix().new Deep().new Deeper();
+                simulation.printReality(6);
             }
         }
+
+        // Simulating the main method call
+        Matrix.main(new String[]{});
     }
 
     // Scenario from question 61
@@ -148,7 +157,7 @@ public class ClassExample {
         log.info("StaticVar: " + staticVar); // Output: StaticVar: Another Static Variable Value
 
         // Running scenario from the image
-        abstractUseCase(); // Output: Compilation error (since it won't compile)
+        nestedClassUseCase(); // Output: 5 2 2
 
         // Running scenario from question 61
         interfaceUseCase(); // This will highlight the compilation error
@@ -158,6 +167,9 @@ public class ClassExample {
 
         // Calling the instance method
         outer.exampleMethod("Hello from instance method");
+
+        // Running scenario where getEqualSides is removed from Square
+        testSquareProgram();
     }
 
     public void ClassExample() {
@@ -269,5 +281,29 @@ public class ClassExample {
         public enum NestedInnerEnum {
             X, Y, Z
         }
+    }
+
+    // Method to demonstrate the Square program with removed method
+     static void testSquareProgram() {
+
+        abstract class Trapezoid {
+            private int getEqualSides() { return 0; }
+        }
+
+        abstract class Rectangle extends Trapezoid {
+            public static int getEqualSides() { return 2; } // x1
+        }
+
+         class Square extends Rectangle {
+            // Removed the getEqualSides method from Square
+
+            public static void main(String[] corners) {
+                final Square myFigure = new Square(); // x3
+                System.out.print(myFigure.getEqualSides()); // This will cause a compilation error
+            }
+        }
+
+        // Simulating the main method call
+        Square.main(new String[]{});
     }
 }
