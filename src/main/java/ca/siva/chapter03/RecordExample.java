@@ -27,6 +27,8 @@ NOTE:
     interface Minute extends Time {}
     non-sealed class Second implements Time {}
     class Micro extends Second {}
+12) you can re-assign the variable twice in a compact constructor
+13) Non-canonical constructor must always delegate the call to canonical constructor.
  */
 
 @Slf4j
@@ -154,6 +156,8 @@ public class RecordExample {
 
         // Compact Constructor with additional validation and assignment
         public Person {
+            age = 1;
+            age = 3;
             log.info("Inside compact constructor");
             if (age < 0) {
                 log.warn("Age is negative, setting age to 0");

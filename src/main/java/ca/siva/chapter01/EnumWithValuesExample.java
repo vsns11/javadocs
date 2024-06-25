@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
  NOTE:
  1) valueOf method will throw IllegalArgumentException when an invalid value is passed.
  2) If enum contains an abstract method, then every enum has to override that method.
+ 3) Enum constructors are implicitly private and cannot be declared public or protected.
+ 4) Enum constructors can only be private or package-private (default access). This is because enum types are intended to be instantiated only within the enum type itself,
  */
 enum Season {
     WINTER("Cold season", 0) {

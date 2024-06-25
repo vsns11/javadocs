@@ -25,6 +25,36 @@ it can leave the method not implemented and let the actual class that extends th
 14) To access instance variables in lambda expressions, they need to be effectively final or explicitly final rule applies to local variables within the enclosing scope of the lambda. However, instance variables (fields of the class) and static variables do not have this restriction and can be accessed and modified freely within the lambda.
 15) Static methods are not apply for polymorphism by instance classes.
 16) In case of abstract class static method, method would be overridden.
+17) Method resolution process:
+     1) Exact match: Compiler looks for a method where parameter types exactly match the argument types.
+     2) Widening conversion: If no exact match, compiler tries to convert arguments to parameter types through widening byte to short, int, long, float, or double
+            short to int, long, float, or double
+            char to int, long, float, or double
+            int to long, float, or double
+            long to float or double
+            float to double
+     3) Boxing and un-boxing: Next, compiler considers methods with boxing/unboxing conversions if needed.
+     4) Varargs: Finally, compiler looks for methods accepting arguments via varargs if no other match found.
+18) Instance method with same name cannot override the static method with same name.
+19) When a field is declared as final, the initialization must be part of constructor, if not given the code won't compile.
+20) In class name rules:
+     1) _ can be defined in class name but not just _ as a class name won't work.
+     2) $ can be used in the class name as well
+     3) Class name can be lowercase, it does not have to start with upper case.
+     4) Numbers are allowed as well but not as a first character.
+21) Object can be used to call both static and instance method having same, so cannot be overridden, hence it won't compile.
+22) When using "protected" method in parent class, all the static, instance methods in child classes able to access protected method parent class.
+23) In an Immutable class, all the fields inside the class should be final and the getter methods should be final as well.
+24) Super can be used to access parent class fields and methods when they are hidden by the child class.
+25) Abstract method cannot be overridden by a final method, while in inheritance you can still define final on child class.
+26) Compiler can detect circular dependency in the constructors, if such exists, the code won't compile.
+27) Explicit casting from a parent class to a child class in Java is known as downcasting. This is only safe when the actual object being referenced is an instance of the child class. If the object is not an instance of the child class, a ClassCastException will be thrown at runtime.
+28) If parent class method does not have "throws" and a child class's overriding method can have "throws <RuntimeException or its subclasses>".
+29) In interfaces/extending abstract classes, when a class implements a method, the overriding method in the implementing class can:
+    1) Throw the same checked exceptions as the interface method.
+    2) Throw any unchecked exceptions( subclass of RuntimeException).
+    3) Throw no exceptions at all.
+
  */
 
 @Slf4j
@@ -35,6 +65,7 @@ public class ClassExample {
     private static String staticVar;
     private String instanceOuterVariable = "Instance Outer Variable";
 
+    public ClassExample() {}
     // Constructor with parameter having the same name as the static variable
     public ClassExample(String staticVar) {
         // Assigning parameter to static variable using the class name to differentiate
@@ -49,6 +80,22 @@ public class ClassExample {
     // Instance method with the same name as a static method
     public void exampleMethod(String message) {
         log.info("Instance method called with message: " + message);
+    }
+
+    static class Parent {
+        public void display() {
+            System.out.println("Display method in Parent");
+        }
+    }
+
+    static class Child extends Parent {
+        public void display() {
+            System.out.println("Display method in Child");
+        }
+
+        public void specificMethod() {
+            System.out.println("Specific method in Child");
+        }
     }
 
     // Scenario from the image
@@ -109,6 +156,55 @@ public class ClassExample {
         //     } // m4
     }
 
+    // Scenario from question 130
+    public static void chooseWiselyUseCase() {
+        class ChooseWisely {
+            public ChooseWisely() {
+                super();
+            }
+
+            public int choose(int choice) {
+                return 5;
+            }
+
+            public int choose(short choice) {
+                return 2;
+            }
+
+            public int choose(long choice) {
+                return 11;
+            }
+
+            public int choose(double choice) {
+                return 6;
+            }
+
+            public int choose(Float choice) {
+                return 8;
+            }
+
+            public static void main(String[] path) {
+                ChooseWisely c = new ChooseWisely();
+                System.out.println(c.choose(2f)); // Output: 6
+                System.out.println(c.choose((byte) 2 + 1)); // Output: 5
+            }
+        }
+
+         class A {
+            // This is good because the method is private. But wont work if you change to public.
+            private static void test1() {}
+             // This is good too
+             private void test2() {}
+         }
+         class B extends  A {
+            public void test1() {}
+             public void test2() {}
+         }
+
+        // Simulating the main method call
+        ChooseWisely.main(new String[]{});
+    }
+
     public static void main(String[] args) {
         // Using enum from the outer class
         ClassExample.OuterEnum outerEnum = ClassExample.OuterEnum.ONE;
@@ -162,14 +258,30 @@ public class ClassExample {
         // Running scenario from question 61
         interfaceUseCase(); // This will highlight the compilation error
 
+        // Running scenario from question 130
+        chooseWiselyUseCase(); // Output: 6 5
+
         // Calling the static method
         ClassExample.exampleMethod();
 
         // Calling the instance method
         outer.exampleMethod("Hello from instance method");
 
+        // anonymous class that extends ClassExample class.
+        new ClassExample(){ public  static final String test = "123";};
+
         // Running scenario where getEqualSides is removed from Square
         testSquareProgram();
+
+        Parent parent = new Child(); // Upcasting
+        parent.display(); // This will call the Child's display method
+
+        // Downcasting to access child-specific methods
+        if (parent instanceof Child) {
+            Child child = (Child) parent;
+            child.display(); // This will call the Child's display method
+            child.specificMethod(); // This will call the Child's specific method
+        }
     }
 
     public void ClassExample() {
@@ -283,8 +395,18 @@ public class ClassExample {
         }
     }
 
+    abstract class Trapezoid {
+        private int getEqualSides() { return 0; } // x1
+    }
+
+    abstract class Rectangle extends Trapezoid {
+        public static int getEqualSides() { return 2; } // x2
+    }
+
+
+
     // Method to demonstrate the Square program with removed method
-     static void testSquareProgram() {
+    static void testSquareProgram() {
 
         abstract class Trapezoid {
             private int getEqualSides() { return 0; }
@@ -294,7 +416,7 @@ public class ClassExample {
             public static int getEqualSides() { return 2; } // x1
         }
 
-         class Square extends Rectangle {
+        class Square extends Rectangle {
             // Removed the getEqualSides method from Square
 
             public static void main(String[] corners) {
