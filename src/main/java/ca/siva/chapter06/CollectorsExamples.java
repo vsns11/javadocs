@@ -3,6 +3,7 @@ package ca.siva.chapter06;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 import java.util.stream.*;
 
@@ -17,8 +18,10 @@ public class CollectorsExamples {
         collectSummarizingIntExample();
         collectPartitioningByExample();
         collectGroupingByExample();
+        collectGroupingByConcurrentExample(); // Add the groupingByConcurrent example
         collectSummingIntExample(); // Add the summingInt example
         collectGroupingByAndSummingIntExample(); // Add the groupingBy and summingInt example
+        collectTeeingExample(); // Add the teeing example
     }
 
     // Existing methods...
@@ -56,7 +59,7 @@ public class CollectorsExamples {
     public static void collectToListExample() {
         List<String> result = Stream.of("a", "b", "c", "d")
                 .collect(Collectors.toList());
-        log.info("ToList result: {}",  result);
+        log.info("ToList result: {}", result);
     }
 
     /**
@@ -67,7 +70,7 @@ public class CollectorsExamples {
     public static void collectToSetExample() {
         Set<String> result = Stream.of("a", "b", "c", "a")
                 .collect(Collectors.toSet());
-        log.info("ToSet result: {}",  result);
+        log.info("ToSet result: {}", result);
     }
 
     /**
@@ -78,7 +81,7 @@ public class CollectorsExamples {
     public static void collectToMapExample() {
         Map<String, Integer> result = Stream.of("a", "b", "c")
                 .collect(Collectors.toMap(Function.identity(), String::length));
-        log.info("ToMap result: {}",  result);
+        log.info("ToMap result: {}", result);
     }
 
     /**
@@ -89,7 +92,7 @@ public class CollectorsExamples {
     public static void collectJoiningExample() {
         String result = Stream.of("a", "b", "c")
                 .collect(Collectors.joining(", "));
-        log.info("Joining result: {}",  result);
+        log.info("Joining result: {}", result);
     }
 
     /**
@@ -100,7 +103,7 @@ public class CollectorsExamples {
     public static void collectSummarizingIntExample() {
         IntSummaryStatistics result = Stream.of(1, 2, 3, 4, 5)
                 .collect(Collectors.summarizingInt(Integer::intValue));
-        log.info("SummarizingInt result: {}",  result);
+        log.info("SummarizingInt result: {}", result);
     }
 
     /**
@@ -111,7 +114,7 @@ public class CollectorsExamples {
     public static void collectPartitioningByExample() {
         Map<Boolean, List<Integer>> result = Stream.of(1, 2, 3, 4, 5)
                 .collect(Collectors.partitioningBy(n -> n % 2 == 0));
-        log.info("PartitioningBy result: {}",  result);
+        log.info("PartitioningBy result: {}", result);
     }
 
     /**
@@ -122,6 +125,57 @@ public class CollectorsExamples {
     public static void collectGroupingByExample() {
         Map<Character, List<String>> result = Stream.of("apple", "banana", "cherry", "apricot")
                 .collect(Collectors.groupingBy(s -> s.charAt(0)));
-        log.info("GroupingBy result: {}",  result);
+        log.info("GroupingBy result: {}", result);
+    }
+
+    /**
+     * Example of Collectors.groupingByConcurrent().
+     * Input: Stream of strings ["apple", "banana", "cherry", "apricot"]
+     * Output: ConcurrentMap grouped by first letter {a=[apple, apricot], b=[banana], c=[cherry]}
+     */
+    public static void collectGroupingByConcurrentExample() {
+        ConcurrentMap<Character, List<String>> result = Stream.of("apple", "banana", "cherry", "apricot")
+                .collect(Collectors.groupingByConcurrent(s -> s.charAt(0)));
+
+        result.forEach((a, b) -> log.info("GroupingByConcurrent a: {}, b:{}", a, b));
+
+    }
+
+    /**
+     * Example of Collectors.teeing().
+     * Input: Stream of integers [1, 2, 3, 4, 5]
+     * Output: Custom summary object combining sum and count
+     */
+    public static void collectTeeingExample() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Using Collectors.teeing to compute sum and count
+        CustomSummary summary = numbers.stream()
+                .collect(Collectors.teeing(
+                        Collectors.summingInt(Integer::intValue),
+                        Collectors.counting(),
+                        (sum, count) -> new CustomSummary(sum, count)
+                ));
+
+        log.info("CustomSummary: Sum={}, Count={}", summary.getSum(), summary.getCount());
+    }
+
+    // Custom summary class
+    public static class CustomSummary {
+        private final int sum;
+        private final long count;
+
+        public CustomSummary(int sum, long count) {
+            this.sum = sum;
+            this.count = count;
+        }
+
+        public int getSum() {
+            return sum;
+        }
+
+        public long getCount() {
+            return count;
+        }
     }
 }

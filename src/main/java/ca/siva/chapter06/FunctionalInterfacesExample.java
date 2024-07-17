@@ -10,6 +10,14 @@ public class FunctionalInterfacesExample {
 
     // BiConsumer Example
     public static void biConsumerExample() {
+        /*
+        These all are valid to have final keyword as arguments in a lambda expression.
+        You can have var only when the argument is 1, if more than 1, it is not possible to define var.
+         */
+        BiConsumer<String, String> x = (final String w, final String y) -> {};
+        Consumer<String> f = (final var w) -> {};
+        Predicate<String> t = (final var s) -> true;
+
         BiConsumer<Integer, Integer> biConsumer = (a, b) -> log.info("Sum: {}", a + b);
         Stream.of(1, 2, 3).forEach(i -> biConsumer.accept(i, i * 2));
     }

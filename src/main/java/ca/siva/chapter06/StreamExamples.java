@@ -424,7 +424,7 @@ public class StreamExamples {
     }
 
     /**
-     * Example of IntegerSummaryStatistics.
+     * Example of IntSummaryStatistics.
      * Input: List of integers [3, 5, 7, 9, 11]
      * Output: Logs count, sum, min, average, and max of the list
      */
