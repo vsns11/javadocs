@@ -218,6 +218,11 @@ Analyze dependencies in your code.
 jdeps --module-path mods --check com.example.myapp.jar
 ```
 
+Summary of Dependencies: Summarizes module dependencies.
+```sh
+jdeps -s com.example.myapp.jar
+```
+
 ### 6. Top-Down Strategy
 Modularize starting from the top-level application module.
 - **Pros**: Immediate benefits of modularization in application layer.
