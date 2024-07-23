@@ -222,6 +222,10 @@ Summary of Dependencies: Summarizes module dependencies.
 ```sh
 jdeps -s com.example.myapp.jar
 ```
+To view jdk internals.
+```sh
+jdeps -jdkinternals com.example.myapp.jar
+```
 
 ### 6. Top-Down Strategy
 Modularize starting from the top-level application module.
