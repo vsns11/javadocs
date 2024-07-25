@@ -34,6 +34,12 @@ module com.example.myapp {
 ## Module Declarations
 ### `requires` Directive
 Specifies module dependencies.
+
+```shell
+module <module-name> {
+    requires <module-to-require>;
+}
+```
 ```java
 module com.example.myapp {
     requires java.sql;
