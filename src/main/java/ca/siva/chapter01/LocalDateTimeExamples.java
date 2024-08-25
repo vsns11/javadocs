@@ -11,6 +11,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.Period;
 import java.time.Duration;
 
+/*
+NOTE:
+1) In DateTimeFormatter pattern, to Escape " ' ", you need to escape with 2 quotes " '' ".
+2) Locale format is defined with lowercase lang and upper case country separated by underscore.
+ */
 @Slf4j
 public class LocalDateTimeExamples {
 
@@ -38,6 +43,14 @@ public class LocalDateTimeExamples {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         String formattedDateTime = dateTime.format(formatter);
         log.info("Formatted DateTime: " + formattedDateTime);
+    }
+
+    // Parsing a LocalDateTime from a string using DateTimeFormatter
+    public static void parseDateTimeWithFormatter() {
+        String dateString = "22-May-2024 14:30";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+        log.info("Parsed DateTime with Formatter: " + dateTime);
     }
 
     // Adding days, weeks, months, years, hours, minutes, and seconds
@@ -158,11 +171,28 @@ public class LocalDateTimeExamples {
         log.info("Hours between instants: " + duration.toHours());
     }
 
+    // Formatting and parsing with a custom string that includes escaped quotes
+    public static void formatAndParseDateTimeWithEscapedQuotes() {
+        LocalDateTime dateTime = LocalDateTime.of(2024, 5, 22, 14, 30);
+
+        // Custom pattern with escaped quotes
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm 'o''clock'");
+
+        // Format the LocalDateTime with the custom pattern
+        String formattedDateTime = dateTime.format(formatter);
+        log.info("Formatted DateTime with Escaped Quotes: " + formattedDateTime);
+
+        // Parse the formatted string back to LocalDateTime
+        LocalDateTime parsedDateTime = LocalDateTime.parse(formattedDateTime, formatter);
+        log.info("Parsed DateTime with Escaped Quotes: " + parsedDateTime);
+    }
+
     public static void main(String[] args) {
         currentDateTime();
         createDateTime();
         parseDateTime();
         formatDateTime();
+        parseDateTimeWithFormatter();
         addToDateTime();
         subtractFromDateTime();
         compareDateTimes();
@@ -177,5 +207,6 @@ public class LocalDateTimeExamples {
         addDurationToInstant();
         subtractDurationFromInstant();
         differenceBetweenInstants();
+        formatAndParseDateTimeWithEscapedQuotes();
     }
 }
