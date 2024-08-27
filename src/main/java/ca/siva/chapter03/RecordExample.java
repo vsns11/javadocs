@@ -29,6 +29,7 @@ NOTE:
     class Micro extends Second {}
 12) you can re-assign the variable twice in a compact constructor
 13) Non-canonical constructor must always delegate the call to canonical constructor.
+14) Only an interface or class can be marked as sealed.
  */
 
 @Slf4j

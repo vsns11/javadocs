@@ -15,19 +15,33 @@ This means anonymous class is extending the defined class and overriding them me
    Same goes with instance variables as well. Also, you cannot have same variable name for static and instance variable.
 7) When an abstract class implements an interface,
 it can leave the method not implemented and let the actual class that extends the abstract class take care of its implementation.
-8) You cannot have a class to implement 2 interfaces which has a same method(default or abstract) defined.
+8)
+   i. If two interfaces define the same abstract method (same method name, return type, and parameters),
+a class that implements both interfaces only needs to provide one implementation for that method. There's no ambiguity here, and Java allows this.
+   ii. If two interfaces define the same method as a default method, and a class implements both interfaces,
+   the compiler will throw an error because it doesn't know which default method implementation to use. In this case, the implementing class must override the method and provide its own implementation to resolve the conflict.
+
 9) Always when using "var" as type, it's value need to be defined as well inorder to be inferred during the compile time.
-10) You cannot define a static method and an instance method with the same name. The code will not compile.
-11) In Java, the term package-private (or default access level) refers to a method, variable, or class member that is accessible only within its own package. It is not accessible from any other package, including subpackages.
-12) In Java, when a constructor in a child class calls another constructor of the same class using this(args), the call to the superclass constructor (super()) is not automatically inserted.
+10) You cannot define a static method and an instance method with the same name with the exact same signature. The code will not compile.
+    However, same method name with different parameters having different signature does allow it as java treats it as method overloading.
+11) In Java, the term package-private (or default access level) refers to a method, variable, or class member that is accessible only within its own package.
+ It is not accessible from any other package, including subpackages.
+12) Constructor chaining: In Java, when a constructor in a child class calls another constructor of the same class using this(args),
+the call to the superclass constructor (super()) is not automatically inserted.
 13) In nested classes, when referring to variables with the same name, `this` refers to the innermost class variable,
-    `OuterClassName.this` refers to the variable in the outer class, and `OuterClassName.InnerClassName.this` refers to the variable in the intermediate inner class.
-14) To access instance variables in lambda expressions, they need to be effectively final or explicitly final rule applies to local variables within the enclosing scope of the lambda. However, instance variables (fields of the class) and static variables do not have this restriction and can be accessed and modified freely within the lambda.
-15) Static methods are not apply for polymorphism by instance classes.
-16) In case of abstract class static method, method would be overridden.
+    `OuterClassName.this` refers to the variable in the outer class, and
+    `OuterClassName.InnerClassName.this` refers to the variable in the intermediate inner class.
+14) To access instance variables in lambda expressions, they need to be effectively final or explicitly final rule applies to local variables within the enclosing scope of the lambda.
+However, instance variables (fields of the class) and static variables do not have this restriction and can be accessed and modified freely within the lambda expression.
+15) Static methods are not subject to polymorphism in Java, and they cannot be overridden in the same way that instance methods can.
+    Because static methods are bound to the class, they cannot be overridden.
+   If a subclass defines a static method with the same signature as a static method in the superclass,
+   it hides the super class's static method rather than overriding it.
+16) Same goes with abstract classes as well for static method, where method hiding is applied.
 17) Method resolution process:
      1) Exact match: Compiler looks for a method where parameter types exactly match the argument types.
      2) Widening conversion: If no exact match, compiler tries to convert arguments to parameter types through widening byte to short, int, long, float, or double
+            byte to short, int, long, float, or double
             short to int, long, float, or double
             char to int, long, float, or double
             int to long, float, or double
@@ -38,23 +52,33 @@ it can leave the method not implemented and let the actual class that extends th
 18) Instance method with same name cannot override the static method with same name.
 19) When a field is declared as final, the initialization must be part of constructor, if not given the code won't compile.
 20) In class name rules:
-     1) _ can be defined in class name but not just _ as a class name won't work.
-     2) $ can be used in the class name as well
+     1) _ can be defined in class name but not just _ as a class name won't work. Can start with "_"
+     2) $ can be used in the class name as well. Can start with "$"
      3) Class name can be lowercase, it does not have to start with upper case.
      4) Numbers are allowed as well but not as a first character.
-21) Object can be used to call both static and instance method having same, so cannot be overridden, hence it won't compile.
-22) When using "protected" method in parent class, all the static, instance methods in child classes able to access protected method parent class.
+21) Object can be used to call both static and instance method having same, so cannot be overridden unless different method signature, hence it won't compile.
+22) When using "protected" method in parent class, all the static(use object of child or parent),
+instance methods in child classes able to access protected method parent class.
 23) In an Immutable class, all the fields inside the class should be final and the getter methods should be final as well.
 24) Super can be used to access parent class fields and methods when they are hidden by the child class.
 25) Abstract method cannot be overridden by a final method, while in inheritance you can still define final on child class.
 26) Compiler can detect circular dependency in the constructors, if such exists, the code won't compile.
-27) Explicit casting from a parent class to a child class in Java is known as downcasting. This is only safe when the actual object being referenced is an instance of the child class. If the object is not an instance of the child class, a ClassCastException will be thrown at runtime.
-28) If parent class method does not have "throws" and a child class's overriding method can have "throws <RuntimeException or its subclasses>".
-29) In interfaces/extending abstract classes, when a class implements a method, the overriding method in the implementing class can:
+27) Explicit casting from a parent class to a child class in Java is known as down-casting.
+This is only safe when the actual object being referenced is an instance of the child class.
+If the object is not an instance of the child class, a ClassCastException will be thrown at runtime.
+It is only safe when the actual object is an instance of the child class.
+28) If parent class method does not have "throws" and a child class's overriding method can have "throws <RuntimeException or unchecked exception or its subclasses>".
+ In this case, child case cannot throw a checked exception since it is not defined in the parent class.
+29) In interfaces/extending abstract classes, when a class implements an interface, the overriding method in the implementing class can:
     1) Throw the same checked exceptions as the interface method.
     2) Throw any unchecked exceptions( subclass of RuntimeException).
-    3) Throw no exceptions at all.
-
+    3) Throw no exceptions at all applies even if the interface method throws a checked exception.
+30) If you don’t explicitly call super() in a constructor,
+the compiler will automatically insert a no-argument call to the superclass constructor (super())
+ unless you call another constructor in the same class using this(args) (constructor chaining).
+31) If the interface does not throw any checked exception,
+the impl class of this interface cannot throw a new checked exceptions.
+32) In java, a class can be named as abstract without defining an abstract method.
  */
 
 @Slf4j
@@ -186,6 +210,7 @@ public class ClassExample {
             public static void main(String[] path) {
                 ChooseWisely c = new ChooseWisely();
                 System.out.println(c.choose(2f)); // Output: 6
+                // Arithmetic operations by default convert both the operators to int, so calls choose method having int signature.
                 System.out.println(c.choose((byte) 2 + 1)); // Output: 5
             }
         }

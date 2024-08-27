@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
   1) A class defined in permits must extend its parent class.
   2) A sealed applied to a class does not have to define permits if all the subclasses are defined in the same class file.
   3) Nested static classes can also have sealed, non-sealed and final modifiers.
+  4) Final Enums: Enums without constants that define class bodies are implicitly final, meaning they cannot be subclassed.
+  5) Sealed Enums: Enums with at least one constant that defines a class body are implicitly sealed, and only the anonymous inner classes (enum constants with class bodies) are allowed to subclass the enum.
+  6) Why sealed Modifier is Illegal: The language enforces these rules implicitly, so there's no need to mark an enum as sealed explicitly. Doing so is redundant and not allowed.
  */
 // Correct scenario: Declaring a sealed class with permitted subclasses
 abstract sealed class Shape permits Circle, Square, Triangle {
@@ -87,6 +90,31 @@ public final class Rectangle {
     }
 }
 */
+
+/*
+ >> This is illegal, as here there's no class body for enum constants, means Color enum is implicitly final.
+public sealed enum Color {
+    RED, GREEN, BLUE;
+}
+*/
+
+// Here Operation is sealed class that permits ADD and SUBTRACT anonymous classes to implement.
+enum Operation {
+    ADD {
+        @Override
+        public int apply(int a, int b) {
+            return a + b;
+        }
+    },
+    SUBTRACT {
+        @Override
+        public int apply(int a, int b) {
+            return a - b;
+        }
+    };
+
+    public abstract int apply(int a, int b);
+}
 
 
 sealed class Shape1 {
