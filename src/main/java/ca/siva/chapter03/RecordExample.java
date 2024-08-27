@@ -30,6 +30,12 @@ NOTE:
 12) you can re-assign the variable twice in a compact constructor
 13) Non-canonical constructor must always delegate the call to canonical constructor.
 14) Only an interface or class can be marked as sealed.
+15) Java records do not allow both a compact constructor and a canonical constructor to be defined at the same time. You must choose one or the other.
+16) If both constructors are provided, the compiler will throw an error due to the ambiguity in how the fields should be initialized.
+17) It is a compile-time error for a record declaration to declare a record component with the name clone, finalize, getClass, hashCode, notify, notifyAll, toString, or wait. Observe that all these are public or protected methods of Object class.
+18) It can define static fields as well as instance and static methods.
+19) record is allowed to have at most one varargs field and if present, it should be at the end of the header.
+20) You may provide any number of constructors in a record. The first line of every non-canonical constructor must invoke another constructor.
  */
 
 @Slf4j
@@ -48,7 +54,7 @@ public class RecordExample {
                 new Person("Carol", 35, Gender.FEMALE),
                 new Person("Siva", 27, Gender.MALE),
                 new Person("John", -1), // Example with negative age
-                new Person("Jane") // Example with name only
+                new Person("Jane", -2) // Example with name only
         ));
         staticVariableExample();
         recordImplementingInterfaceExample();
@@ -169,18 +175,22 @@ public class RecordExample {
             }
         }
 
+        // this will not compile because you can have a chained constructor + compact, but not compact and canonical constructor doing assii
+
+//        public Person(String name, int age, Gender gender) {
+//            this.name = name;
+//            this.age = age;
+//            this.gender = gender;
+//        }
+
+
         //This is how you can override the getter inside a record.
 
         @Override
         public int age() {
             return age;
         }
-
         // Custom Constructor (name only)
-        public Person(String name) {
-            this(name, 0, Gender.OTHER); // Delegate to canonical constructor with default values
-            log.info("Using custom constructor with name only");
-        }
 
         // Constructor with transformations (optional)
         public Person(String name, int age) {

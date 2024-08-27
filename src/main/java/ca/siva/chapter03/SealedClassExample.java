@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
   4) Final Enums: Enums without constants that define class bodies are implicitly final, meaning they cannot be subclassed.
   5) Sealed Enums: Enums with at least one constant that defines a class body are implicitly sealed, and only the anonymous inner classes (enum constants with class bodies) are allowed to subclass the enum.
   6) Why sealed Modifier is Illegal: The language enforces these rules implicitly, so there's no need to mark an enum as sealed explicitly. Doing so is redundant and not allowed.
+  7) A top level sealed class must have a permits clause. An exception to this rule is that if all the direct subclasses of this sealed class are defined in the same compilation unit (meaning, in the same source file), then the permits clause is not needed.
+  8) All permitted subtypes of a sealed type must either belong to the same package or to the same module.
  */
 // Correct scenario: Declaring a sealed class with permitted subclasses
 abstract sealed class Shape permits Circle, Square, Triangle {
