@@ -1,4 +1,4 @@
-package ca.siva.chapter10;
+package ca.siva.ch10_jdbc;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,9 +6,14 @@ import java.sql.*;
 
 /*
 NOTE:
-1) Connection, Driver, PreparedStatement, CallableStatement, and ResultSet are interfaces. DriverManager is a factory class, not an interface.
+1) Driver, Connection, Statement, PreparedStatement, CallableStatement, and ResultSet are interfaces. DriverManager is a factory class, not an interface.
+For all these interfaces, implementation should be provided by the driver.
 2) preparedStatement.setNull(2, Types.VARCHAR) it is required and has to provide the type in db.
 3) rollback() is ignored when autocommit mode is set to true.
+4) An unclosed ResultSet may consume memory but it will not cause an SQLException to be thrown.
+5) This is true because you don't have to write any SQL query in Java code. You just use the name of the stored procedure.
+The queries are already there inside the stored procedure, which exists in the Database and not in JDBC code.
+6) Once a Connection object is closed, you cannot access any of the subsequent objects such as Statement and ResultSet that are retrieved from that Connection.
 */
 
 @Slf4j
@@ -28,7 +33,7 @@ public class JDBCExamples {
     }
 
     /**
-     * Example of executing a simple query using PreparedStatement.
+     * Example of executing a simple query using PreparedStatement. getConnection() throws checked SQLException.
      * Input: No direct input, but internally uses "Sales" as the department filter in the SQL query.
      * Output: Logs the employee ID and name for all employees in the Sales department.
      */
@@ -224,13 +229,50 @@ public class JDBCExamples {
         }
     }
 
+    /**
+     * Example of using TYPE_SCROLL_INSENSITIVE and CONCUR_UPDATABLE with ResultSet.
+     * Input: No direct input, but modifies an employee's name by scrolling through the ResultSet.
+     * Output: Logs the original and updated name of the first employee in the Sales department.
+     */
+    public static void scrollableAndUpdatableResultSet() {
+        String query = "SELECT id, name FROM employees WHERE department = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+
+            preparedStatement.setString(1, "Sales");
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String originalName = resultSet.getString("name");
+                    log.info("Original Employee Name: {}", originalName);
+
+                    // Update the name in the ResultSet (this will update the database too)
+                    resultSet.updateString("name", originalName + " Updated");
+                    resultSet.updateRow();
+
+                    // Scroll back to the first row to verify the update
+                    resultSet.beforeFirst();
+                    if (resultSet.next()) {
+                        String updatedName = resultSet.getString("name");
+                        log.info("Updated Employee Name: {}", updatedName);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            log.error("Error working with scrollable and updatable ResultSet", e);
+        }
+    }
     public static void main(String[] args) {
         executeSimpleQuery();
         insertData();
-        insertDataWithNull(); // Demonstrate inserting NULL values
+        insertDataWithNull();
         callStoredProcedure();
         batchUpdate();
         executeExample();
         transactionWithSavepoint();
+        scrollableAndUpdatableResultSet();
     }
 }

@@ -1,4 +1,4 @@
-package ca.siva.chapter11;
+package ca.siva.ch11_localization;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,6 +13,36 @@ import java.util.Locale;
 NOTE:
 1) DateTimeFormatter and localDate, both have format method. Where DateTimeFormatter's format takes localDate as input to retrieve string.
 The other, localDate's format method takes DateTimeFormatter as input parameter.
+2) DateTimeFormatter cannot be instantiated because it has no public constructor.
+TEXT FORMATTING RULES:
+For pattern letters that correspond to textual data (e.g., month names, day names),
+the length of the pattern determines the style of the output:
+MMM (3 letters) for months → "Jan" (short form).
+MMMM (4 letters) for months → "January" (full form).
+MMMMM (5 letters) for months → "J" (narrow form).
+notations:
+M: Represents the month.
+d: Represents the day of the month.
+y: Represents the year.
+H: Represents the hour of the day (0-23).
+h: Represents the hour in AM/PM format (1-12).
+s: Represents the seconds.
+S: Represents the fraction of a second (milliseconds).
+z: Represents the time zone.
+NUMBER FORMATTING RULES:
+For pattern letters that correspond to numerical data (e.g., day, month, hour, minute), the length of the pattern controls whether padding is used and how many digits are displayed:
+
+1 letter: The value is output using the minimum number of digits without any padding. For example, d for the day would produce "5" for the 5th day of the month.
+2 or more letters: The value is padded with leading zeros to fit the specified width. For example, dd for the day would produce "05" for the 5th day.
+Special Cases:
+
+Some pattern letters have specific constraints on how many letters can be used. For example:
+c (day of the week) and F (day of the week in month) can only be specified with 1 letter.
+d, H, h, K, k, m, and s can only be specified with up to 2 letters.
+D (day of the year) can only be specified with up to 3 letters.
+
+3) dt.format(java.time.format.DateTimeFormatter.ISO_DATE_TIME) returns date string in ISO8601 format which is same as toString() returns by default.
+
  */
 @Slf4j
 public class DateTimeFormatterExamples {

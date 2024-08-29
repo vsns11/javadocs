@@ -2,6 +2,15 @@ package ca.siva.chapter01;
 
 import lombok.extern.slf4j.Slf4j;
 
+/*
+NOTE:
+2^ 16 = 65536
+SHORT -> -32,768 to 32,767  -> signed value
+CHAR -> 0 to 65,535 -> unsigned value
+so assigning short to char require an explicit cast and vice-versa as well since there's a data loss involved here.
+1)  short is a signed 16-bit integer, whereas char is an unsigned 16-bit integer.
+2) long g = 012 ; a number starts with 0 is an octal with base value represented 8 (0 to 7)
+ */
 @Slf4j
 public class OperatorPrecedence {
 

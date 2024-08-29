@@ -1,4 +1,4 @@
-package ca.siva.chapter09;
+package ca.siva.ch09_io_and_nio;
 
 import lombok.extern.slf4j.Slf4j;
 

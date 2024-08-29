@@ -1,8 +1,9 @@
-package ca.siva.chapter11;
+package ca.siva.ch11_localization;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.NumberFormat;
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,8 @@ NOTE:
     Search for rb with passed locale to getBundle(xx) method, if not use the default locale, if no default, then finally use name.properties
 2) if the match was found for the given requested locale to getBundle(xx) method:
     Search for rb with passed locale to getBundle(xx) method, if not found, use name.properties else throw error even the property is not found at runtime.
+3) ResourceBundle.getKeys() will return keys from all resource bundle files in the inheritance chain,
+not just from a single file.
 
  */
 @Slf4j
@@ -129,6 +132,24 @@ public class ResourceBundleExamples {
         Locale.setDefault(Locale.Category.DISPLAY, Locale.US);
     }
 
+    /**
+     * Example of loading a ResourceBundle and printing all keys from the inheritance chain.
+     * This demonstrates how keys are loaded from different files based on the locale.
+     * Input: Locale "en_UK"
+     * Output: Logs all keys and values from both the base bundle (mymsgs.properties) and the locale-specific bundle (mymsgs_en_UK.properties).
+     */
+    public static void loadResourceBundleAndPrintKeys() {
+        Locale myloc = new Locale.Builder().setLanguage("en").setRegion("UK").build();  // en_UK locale
+        ResourceBundle msgs = ResourceBundle.getBundle("mymsgs", myloc);  // Load resource bundle for en_UK
+
+        Enumeration<String> en = msgs.getKeys();  // Get all keys in the resource bundle (including inheritance chain)
+        while (en.hasMoreElements()) {
+            String key = en.nextElement();
+            String val = msgs.getString(key);
+            log.info("{}: {}", key, val);  // Print key-value pairs
+        }
+    }
+
     public static void main(String[] args) {
         loadDefaultResourceBundle();  // Load the default (en_US) resource bundle
         loadFrenchResourceBundle();  // Load the French (fr_FR) resource bundle
@@ -136,5 +157,6 @@ public class ResourceBundleExamples {
         loadResourceBundleWithFallback();  // Load a bundle with fallback to default (en_US)
         loadResourceBundleUsingDisplayCategory();  // Load bundle using DISPLAY category locale
         mixedLocaleScenario();  // Run the mixed locale scenario
+        loadResourceBundleAndPrintKeys(); // Load resource bundle and print all keys and values
     }
 }

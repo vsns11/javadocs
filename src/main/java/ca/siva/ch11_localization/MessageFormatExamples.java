@@ -1,10 +1,8 @@
-package ca.siva.chapter11;
+package ca.siva.ch11_localization;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.MessageFormat;
-import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 

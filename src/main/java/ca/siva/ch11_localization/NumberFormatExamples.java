@@ -1,4 +1,4 @@
-package ca.siva.chapter11;
+package ca.siva.ch11_localization;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +16,10 @@ NOTE:
     # (optional digit), and .# (decimal and one optional digit).
 3) Locale.Category.FORMAT -> Controls how data like numbers, dates, times, and currencies are formatted. This category affects methods like NumberFormat.getInstance() or DateTimeFormatter.ofLocalizedDate().
 4) Locale.Category.DISPLAY -> Controls how text is displayed in the user interface, including language names, month names, day names, and other text-based elements that are usually localized.
+5) DecimalFormat constructor takes only pattern not locale and it is a child class of NumberFormat(i.e., an abstract class).
+This is valid:
+NumberFormat formatter = DecimalFormat.getCurrencyInstance(jp);
+6) getInstance(Locale ) is a valid factory method in NumberFormat class but it will not not format the given number as per the currency.
 
  */
 @Slf4j
@@ -31,6 +35,19 @@ public class NumberFormatExamples {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();  // Uses the default locale
         String formattedNumber = numberFormat.format(number);
         log.info("Formatted Number (Default Locale): {}", formattedNumber);
+    }
+
+    /**
+     * Example of formatting a number using NumberFormat.getInstance().
+     * Input: A double value 1234567.89
+     * Output: Logs the formatted number using a general-purpose formatter according to the default locale.
+     */
+    public static void formatWithGetInstance() {
+        double number = 1234567.89;
+        // getInstance(Locale ) is a valid factory method in NumberFormat class but it will not not format the given number as per the currency.
+        NumberFormat numberFormat = NumberFormat.getInstance();  // General-purpose number formatter
+        String formattedNumber = numberFormat.format(number);
+        log.info("Formatted Number with getInstance(): {}", formattedNumber);
     }
 
     /**
@@ -231,6 +248,7 @@ public class NumberFormatExamples {
 
     public static void main(String[] args) {
         formatNumberDefaultLocale();
+        formatWithGetInstance();  // Added call to the new getInstance() method example
         formatNumberWithLocale();
         formatCurrencyDefaultLocale();
         formatCurrencyWithLocale();
