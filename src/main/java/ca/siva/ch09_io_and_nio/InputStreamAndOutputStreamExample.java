@@ -9,7 +9,11 @@ NOTE:
     1) System.in uses inputStream and System.out and System.err uses printStream
     2) It is fine to declare BufferedInputStream Object outside try-with-resources block and refer inside the try block
     3) In printf, %5.2f means 2 decimal values after "." and overall min width should be of 5, if not, spaces are added to the left.
-
+    4) During deserialization, the constructor of the class (or any static or instance blocks) is not executed. However, if the super class does not implement Serializable,
+    its constructor is called. So here, BooBoo and Boo are not Serializable. So, their constructor is invoked.
+    5) java.nio.file.NoSuchFileException will be thrown when the program tries to create a BufferedReader to read the file specified by the Path object that does not exist.
+    6) write/readString are not a valid methods in Data[Output|Input]Stream class.
+    If you need to write and read Strings, you should use writeUTF and readUTF.
  */
 @Slf4j
 public class InputStreamAndOutputStreamExample {
@@ -318,6 +322,51 @@ public class InputStreamAndOutputStreamExample {
         }
     }
 
+    /**
+     * About: Demonstrates reading and writing using RandomAccessFile.
+     * Input: A file path to read from and write to, e.g., "/path/to/file.txt".
+     * Output: Logs the contents read from and written to the file.
+     *
+     *Although writeChars(String ) is a valid method in RandomAccessFile, it is not suitable here because you want to read the contents in UTF format later.
+     * writeChars will write the String is default encoding and if you try to read it as UTF, it will throw an exception while reading.
+     */
+    public static void demonstrateRandomAccessFile() {
+        String filePath = "/path/to/file.txt";
+
+        //  Valid modes are "r", "rw", "rws", and "rwd"
+        /*
+        "r": Read-only, file must exist.
+        "rw": Read and write, creates file if it doesn't exist.
+        "rws": Read, write with synchronous updates to both data and metadata.
+        "rwd": Read, write with synchronous updates to data only, metadata updates are not guaranteed to be immediate.
+         */
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw")) {
+            // Write to the file
+            randomAccessFile.writeUTF("This is a line written by RandomAccessFile.");
+
+            // Move the file pointer to the beginning
+            randomAccessFile.seek(0);
+
+            // Read from the file
+            String content = randomAccessFile.readUTF();
+            log.info("RandomAccessFile content: {}", content);
+
+            // Move the file pointer to the end
+            randomAccessFile.seek(randomAccessFile.length());
+
+            // Write more data
+            randomAccessFile.writeUTF(" Another line added to the end.");
+            log.info("Additional content written to file.");
+
+            // Read the entire file from the beginning
+            randomAccessFile.seek(0);
+            log.info("Complete content after additional write: {}", randomAccessFile.readUTF());
+
+        } catch (IOException e) {
+            log.error("An error occurred with RandomAccessFile", e);
+        }
+    }
+
 
 
     public static void main(String[] args) {
@@ -336,6 +385,7 @@ public class InputStreamAndOutputStreamExample {
         readAndWriteBytes();
         demonstrateFormattedOutput();
         readAndWriteOneByteAtATime();
+        demonstrateRandomAccessFile();
     }
 
     static class ExampleObject implements Serializable {

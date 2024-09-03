@@ -13,6 +13,10 @@ NOTE:
  1) toAbsolutePath(): Converts a relative path to an absolute path but does not resolve symbolic links or canonicalize the path. It does not interact with FileSystem.
 toRealPath(): Unlike toAbsolutePath(), this interacts with filesystem. And converts the path to its canonical form, resolving symbolic links and removing any redundant elements. It accesses the filesystem and can throw an IOException.
 2) Files.walk(xxx) method's default depth is Integer.MAX_VALUE if not provided.
+3) Files.copy method will copy the file test1.txt into test2.txt. If test2.txt doesn't exist, it will be created. However,
+Files.isSameFile method doesn't check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.
+4) Files.list(Path) returns Stream<Path> containing all the paths (files and subdirectories) of current directory. It is not recursive.
+5) For recursive access, use overloaded Files.walk() methods.
  */
 @Slf4j
 public class FilesExample {

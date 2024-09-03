@@ -13,7 +13,14 @@ NOTES:
 1) Checking isSameFile() or doing normalize() and compare with equals on a path object is same
 2) isSameFile() throws NoSuchFileException when the path pointing file does not exist.
 3) In p1.relativize(p2) method, both p1 and p2 should be either relative or absolute paths; should be same to work fine.
-Else it throws runTimeException.
+Else it throws IllegalArgumentException.
+4) If the path being resolved (other) is absolute, the resolve() method returns other.
+    Example: Paths.get("/a/b").resolve("/c/d") -> "/c/d"
+5) Resolving an empty path does nothing, so the original path is returned.
+    Example: Paths.get("/a/b").resolve("") -> "/a/b"
+6) If a relative path is resolved against an absolute path, the resulting path is still absolute.
+Example: Paths.get("a/b").resolve("/c/d") -> "/c/d"
+
  */
 @Slf4j
 public class PathsExample {

@@ -1,4 +1,4 @@
-package ca.siva.chapter08;
+package ca.siva.ch08_threads_and_concurrency;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
