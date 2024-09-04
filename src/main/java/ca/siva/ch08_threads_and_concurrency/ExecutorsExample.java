@@ -1,9 +1,6 @@
 package ca.siva.ch08_threads_and_concurrency;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -17,6 +14,9 @@ public class ExecutorsExample {
         executeSingleThreadExecutor();
         executeScheduledThreadPool();
         executeSingleThreadScheduledExecutor();
+        executeScheduleCallable();
+        executeScheduleAtFixedRate();
+        executeScheduleWithFixedDelay();
     }
 
     // Example 1: FixedThreadPool
@@ -136,6 +136,68 @@ public class ExecutorsExample {
             singleThreadScheduledExecutor.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             log.error("SingleThreadScheduledExecutor was interrupted during shutdown", e);
+        }
+    }
+
+    // Example 6: Schedule a Callable task
+    public static void executeScheduleCallable() {
+        ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(1);
+
+        Callable<String> callableTask = () -> {
+            log.info("Scheduled Callable Task running in {}", Thread.currentThread().getName());
+            return "Callable Result";
+        };
+
+        ScheduledFuture<String> future = scheduledExecutor.schedule(callableTask, 3, TimeUnit.SECONDS);
+
+        try {
+            log.info("Scheduled Callable Result: {}", future.get());
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("Error during Scheduled Callable execution", e);
+        }
+
+        scheduledExecutor.shutdown();
+    }
+
+    // Example 7: Schedule a task at a fixed rate
+    public static void executeScheduleAtFixedRate() {
+        ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(1);
+
+        Runnable periodicTask = () -> log.info("Fixed Rate Task running in {}", Thread.currentThread().getName());
+
+        ScheduledFuture<?> future = scheduledExecutor.scheduleAtFixedRate(periodicTask, 1, 2, TimeUnit.SECONDS);
+
+        scheduledExecutor.schedule(() -> {
+            future.cancel(false);
+            log.info("Fixed Rate Task cancelled");
+        }, 10, TimeUnit.SECONDS);
+
+        scheduledExecutor.shutdown();
+        try {
+            scheduledExecutor.awaitTermination(15, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            log.error("ScheduledExecutor was interrupted during shutdown", e);
+        }
+    }
+
+    // Example 8: Schedule a task with a fixed delay
+    public static void executeScheduleWithFixedDelay() {
+        ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(1);
+
+        Runnable delayedTask = () -> log.info("Fixed Delay Task running in {}", Thread.currentThread().getName());
+
+        ScheduledFuture<?> future = scheduledExecutor.scheduleWithFixedDelay(delayedTask, 1, 3, TimeUnit.SECONDS);
+
+        scheduledExecutor.schedule(() -> {
+            future.cancel(false);
+            log.info("Fixed Delay Task cancelled");
+        }, 10, TimeUnit.SECONDS);
+
+        scheduledExecutor.shutdown();
+        try {
+            scheduledExecutor.awaitTermination(15, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            log.error("ScheduledExecutor was interrupted during shutdown", e);
         }
     }
 }

@@ -1,6 +1,16 @@
 package ca.siva.ch08_threads_and_concurrency;
 import lombok.extern.slf4j.Slf4j;
 
+/*
+NOTE:
+1) Thread Lifecycle Summary
+NEW → RUNNABLE: When start() is called on the thread.
+RUNNABLE → BLOCKED: When the thread tries to acquire an object lock.
+RUNNABLE → WAITING/TIMED_WAITING: When waiting for another thread or sleeping.
+BLOCKED/WAITING/TIMED_WAITING → RUNNABLE: When the thread acquires the lock or is notified.
+RUNNABLE → TERMINATED: When the run() method finishes or an unhandled exception occurs.
+
+ */
 @Slf4j
 public class ThreadExamples {
 

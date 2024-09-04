@@ -1,7 +1,7 @@
 package ca.siva.ch08_threads_and_concurrency;
 
+import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -13,24 +13,32 @@ public class LockExamples {
     // ReentrantLock example
     private static final ReentrantLock reentrantLock = new ReentrantLock();
 
-    // ReadWriteLock example
-
-
     // StampedLock example
     private static final StampedLock stampedLock = new StampedLock();
+
+    // CyclicBarrier example
+    private static final CyclicBarrier cyclicBarrier = new CyclicBarrier(3, () -> {
+        log.info("All threads have reached the barrier. Proceeding...");
+    });
 
     public static void main(String[] args) {
         log.info("Starting Lock Examples...");
 
         Thread t1 = new Thread(LockExamples::reentrantLockExample, "ReentrantLock-Thread-1");
         Thread t2 = new Thread(LockExamples::reentrantLockExample, "ReentrantLock-Thread-2");
-        Thread t5 = new Thread(LockExamples::stampedLockExample, "StampedLock-Thread-1");
-        Thread t6 = new Thread(LockExamples::stampedLockExample, "StampedLock-Thread-2");
+        Thread t3 = new Thread(LockExamples::cyclicBarrierExample, "CyclicBarrier-Thread-1");
+        Thread t4 = new Thread(LockExamples::cyclicBarrierExample, "CyclicBarrier-Thread-2");
+        Thread t5 = new Thread(LockExamples::cyclicBarrierExample, "CyclicBarrier-Thread-3");
+        Thread t6 = new Thread(LockExamples::stampedLockExample, "StampedLock-Thread-1");
+        Thread t7 = new Thread(LockExamples::stampedLockExample, "StampedLock-Thread-2");
 
         t1.start();
         t2.start();
+        t3.start();
+        t4.start();
         t5.start();
         t6.start();
+        t7.start();
     }
 
     // Example 1: Using ReentrantLock
@@ -52,7 +60,6 @@ public class LockExamples {
             }
         }
     }
-
 
     // Example 3: Using StampedLock
     public static void stampedLockExample() {
@@ -85,6 +92,19 @@ public class LockExamples {
             } catch (InterruptedException e) {
                 log.error("{} was interrupted", Thread.currentThread().getName(), e);
             }
+        }
+    }
+
+    // Example 4: Using CyclicBarrier
+    public static void cyclicBarrierExample() {
+        try {
+            log.info("{} - Performing some work before barrier", Thread.currentThread().getName());
+            Thread.sleep((int) (Math.random() * 3000)); // Simulate work
+            log.info("{} - Waiting at the barrier", Thread.currentThread().getName());
+            cyclicBarrier.await(); // Wait at the barrier
+            log.info("{} - Proceeding after the barrier", Thread.currentThread().getName());
+        } catch (InterruptedException | BrokenBarrierException e) {
+            log.error("{} was interrupted or barrier was broken", Thread.currentThread().getName(), e);
         }
     }
 }
