@@ -4,6 +4,12 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
 import lombok.extern.slf4j.Slf4j;
 
+/*
+NOTE:
+1) the fact that a thread may reacquire the lock that it already owns and that it must release the lock (by calling the unlock method) the same number of times as the number of times it has called lock or tryLock.
+2) Lock interface has lock() and unlock() methods, whereas for ReadWriteLock, it has to use lock.readLock().lock() and lock.readLock().unlock()
+ */
+
 @Slf4j
 public class LockExamples {
 
