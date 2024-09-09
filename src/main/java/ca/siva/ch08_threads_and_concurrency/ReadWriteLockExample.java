@@ -14,6 +14,10 @@ This is implementation-dependent but common in many ReadWriteLock implementation
 3) Multiple readers can read simultaneously if no writer is active.
 4) A writer blocks all readers and other writers until it finishes.
 5) Once the write operation is complete, the read lock can be acquired again by other threads.
+6) Lock interface's lock() method returns void, while its tryLock() returns boolean.
+7) The first tryLock() returns true because the lock is free, and the thread acquires the lock.
+8) The second tryLock() also returns true because the same thread is allowed to reenter the lock without blocking.
+9) We need to call unlock() to fully release the lock, once for each tryLock() call.
  */
 public class ReadWriteLockExample {
     private static final ReadWriteLock lock = new ReentrantReadWriteLock();

@@ -5,6 +5,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.extern.slf4j.Slf4j;
 
+/*
+NOTE:
+1) ai.incrementAndGet(); and ai.addAndGet(1); both the methods are valid on atomic integer.
+
+ */
 @Slf4j
 public class AtomicExamples {
 

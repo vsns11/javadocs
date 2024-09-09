@@ -1,8 +1,16 @@
-package ca.siva.chapter06;
+package ca.siva.ch06_streams_and_lambda;
 
 import java.util.*;
 import java.util.stream.*;
 
+/*
+NOTE:
+1) dropWhile(Predicate) when used on stream, it skips the elements where predicate evaluates to true.
+Once the condition evaluates to false for an element, then the rest of the elements are included even
+when predicate evaluates to true.
+2) takeWhile(predicate) behaves like the opposite of above.
+
+ */
 public class LongStreamExamples {
     public static void main(String[] args) {
         filterExample();

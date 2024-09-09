@@ -1,4 +1,4 @@
-package ca.siva.chapter06;
+package ca.siva.ch06_streams_and_lambda;
 
 import lombok.extern.slf4j.Slf4j;
 

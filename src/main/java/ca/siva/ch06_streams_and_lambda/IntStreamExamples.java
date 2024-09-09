@@ -1,10 +1,8 @@
-package ca.siva.chapter06;
+package ca.siva.ch06_streams_and_lambda;
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
-import java.util.PrimitiveIterator;
-import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.slf4j.Logger;

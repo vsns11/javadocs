@@ -1,15 +1,15 @@
-package ca.siva.chapter06;
+package ca.siva.ch06_streams_and_lambda;
 import java.util.Arrays;
 import java.util.DoubleSummaryStatistics;
 import java.util.OptionalDouble;
-import java.util.PrimitiveIterator;
-import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DoubleStreamExamples {
+    static int x = 5;
+
     private static final Logger log = LoggerFactory.getLogger(DoubleStreamExamples.class);
 
     public static void main(String[] args) {
@@ -156,7 +156,10 @@ public class DoubleStreamExamples {
     public static void peekExample() {
         double[] result = DoubleStream.iterate(1.0, n -> n + 1.0)
                 .limit(3)
-                .peek(n -> log.info("Peek: {}", n))
+                .peek(n ->{
+                    x = 6;
+                 log.info("Peek: {}", n);
+                })
                 .toArray();
         log.info("Peek result: {}", Arrays.toString(result));
     }

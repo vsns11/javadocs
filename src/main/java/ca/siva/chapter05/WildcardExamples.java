@@ -6,11 +6,18 @@ import java.util.List;
 
 /*
 NOTE:
-1. ? extends <class> => allows all subtypes of given class and itself.
-2. ? super <class> => allows all super types of given class and itself.
+1. ? extends <class> => allows all subtypes of given class and itself.Only used for reading.
+Except that it allows to write null values.
+2. ? super <class> => allows all super types of given class and itself. Only used for writing
+It can also hold any super types of <class> and also can add any subclass of <class>.
 3. ? cannot be used in the class declaration e.g. class Siva<?> => this won't compile.
 4. when using 1 and 2 in variables,  ? extends <class>, and just ? won't work in adding any elements to the data structure, since compiler can't guarantee the type safety
    so, only .add(null) works good. Whereas ? super <class> works good with ds to add elements.
+5. Covariance (? extends T)
+allows reading because you know the type is always T or a subtype of T. So, you are guaranteed to get at least a T.
+Contravariance (? super T)
+ allows writing because you can put in T or anything that extends T, but you can't be sure what you get back.
+ Therefore, the type is generalized to Object.
 
  */
 @Slf4j
@@ -81,6 +88,7 @@ public class WildcardExamples {
         list.add(1);
         list.add(2);
         list.add(3);
+
     }
 
     // Example of generic method with wildcard
@@ -112,6 +120,8 @@ public class WildcardExamples {
     // Example of why adding is not allowed in upper bounded wildcard
     public void exampleWhyAddNotAllowedInUpperBoundedWildcard() {
         List<? extends Number> numberList = new ArrayList<Integer>();
+        List<? extends Number> doubleList = new ArrayList<Double>();
+        List<? extends Number> booleanList = new ArrayList<Long>();
 
         // The following line would cause a compilation error because you cannot add elements to a collection
         // defined with an upper bounded wildcard. The compiler cannot guarantee the type safety.
