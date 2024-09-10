@@ -1,4 +1,4 @@
-package ca.siva.chapter04;
+package ca.siva.ch04_exception_handling;
 
 import java.io.*;
 import java.sql.*;
@@ -22,6 +22,9 @@ But the caller has to mandatory implement that method in case of a checked excep
 11) Any checked exception that's thrown inside close() must be implemented by the caller in try{} catch{}
 12) The subclass covariant check applies only on checked exceptions, but not on RuntimeExceptions.
 13) When both try and finally throws an exception, the one thrown in finally would become the primary exception.
+14) The close() method in a try-with-resources block is called before the finally block.
+If both a close() method and a finally block are present, the resource is guaranteed to be closed before the finally block executes.
+15) A try-with-resources statement can have catch as well as finally blocks but does not require either.
 
  */
 public class ExceptionScenarios {

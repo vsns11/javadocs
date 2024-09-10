@@ -5,6 +5,22 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.function.*;
 import java.util.stream.*;
 
+
+/*
+NOTE:
+1) ClassName::method (Static or Unbound Instance Method Reference):
+
+Refers to a static method or an instance method where the actual instance will be provided at the time of execution.
+Useful for situations like working with streams where you may want to refer to instance methods (like String::length)
+ but don't have the instance immediately available.
+
+2) instance::method (Bound Instance Method Reference):
+
+Refers to an instance method of a specific object.
+The instance is already available, and you're passing its method as a reference to be called later.
+
+ */
+
 @Slf4j
 public class FunctionalInterfacesExample {
 

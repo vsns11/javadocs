@@ -5,6 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.stream.*;
 
+/*
+NOTE:
+1) min and max are valid reduction operations. The Stream version of these methods take a Comparator as an argument,
+while the versions in specialized streams such as IntStream and DoubleStream do not take any argument.
+ */
 @Slf4j
 public class StreamExamples {
 

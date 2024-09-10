@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
   However, there are specific methods from the Object class (such as toString(), hashCode(), equals(), etc.)
   that you cannot declare as abstract methods in an interface.
   This is because every class in Java implicitly extends Object, and thus, these methods are always available.
+  7) When class declares method by narrowing the exception or not declaring an exception which is thrown by an interface.
+  It still compiles fine.
 
  */
 interface ExampleInterface {
