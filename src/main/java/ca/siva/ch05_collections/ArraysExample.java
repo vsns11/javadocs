@@ -1,4 +1,4 @@
-package ca.siva.chapter05;
+package ca.siva.ch05_collections;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -78,6 +78,8 @@ public class ArraysExample {
     // Example of searching in an array
     // Output: Array: [1, 2, 3, 4, 5]
     // Element 3 found at index: 2, returns a -ve number if the element is not found
+    // If the element is not found, it returns -(insertion point + 1).
+    // The insertion point is the index where the element would be inserted to maintain sorted order.
     public void exampleArraySearch() {
         int[] array = {1, 2, 3, 4, 5};
         int index = Arrays.binarySearch(array, 3);
@@ -115,7 +117,7 @@ public class ArraysExample {
     // Example of using Arrays.mismatch
     // Output: Array1: [1, 2, 3, 4, 5]
     // Array2: [1, 2, 3, 4, 6]
-    // First mismatch at index: 4
+    // First mismatch at index: 4, if arrays are identical it returns -1
     public void exampleArrayMismatch() {
         int[] array1 = {1, 2, 3, 4, 5};
         int[] array2 = {1, 2, 3, 4, 6};
@@ -129,6 +131,11 @@ public class ArraysExample {
     // Output: Array1: [1, 2, 3, 4, 5]
     // Array2: [1, 2, 3, 4, 6]
     // Comparison result: -1
+    /*
+    A negative integer if the first array is lexicographically less than the second array.
+    Zero if both arrays are equal.
+    A positive integer if the first array is lexicographically greater than the second array.
+     */
     public void exampleArrayCompare() {
         int[] array1 = {1, 2, 3, 4, 5};
         int[] array2 = {1, 2, 3, 4, 6};

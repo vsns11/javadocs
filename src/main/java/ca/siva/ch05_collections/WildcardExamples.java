@@ -1,4 +1,4 @@
-package ca.siva.chapter05;
+package ca.siva.ch05_collections;
 
 import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;

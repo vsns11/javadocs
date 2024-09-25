@@ -1,4 +1,4 @@
-package ca.siva.chapter05;
+package ca.siva.ch05_collections;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +14,10 @@ NOTE:
 2) Diamond operator <>, cannot be used on the left-hand side of the assignment, as the code won't compile.
 3) Also, you cannot sort an ImmutableList(List<>) but you can sort an arrayList though.
 4) When unboxing for Integer, compiler automatically calls .intValue() method to retrieve the primitive value.
-5) The thenComparing method is used in Java to build compound comparators. When sorting collections, thenComparing allows you to specify multiple levels of sorting criteria. If two elements are equal based on the primary comparator, thenComparing allows you to specify secondary comparators to break the tie.
+5) The thenComparing method is used in Java to build compound comparators.
+ When sorting collections, thenComparing allows you to specify multiple levels of sorting criteria.
+ If two elements are equal based on the primary comparator,
+ thenComparing allows you to specify secondary comparators to break the tie.
 
  */
 @Slf4j

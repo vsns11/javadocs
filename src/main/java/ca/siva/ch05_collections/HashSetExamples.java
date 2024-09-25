@@ -1,8 +1,7 @@
-package ca.siva.chapter05;
+package ca.siva.ch05_collections;
 
 import lombok.extern.slf4j.Slf4j;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /*
