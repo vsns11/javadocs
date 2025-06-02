@@ -1,0 +1,148 @@
+1) The replication instance is the compute engine (EC2 under the hood) that actually moves data from source to target. 
+
+aws dms create-replication-instance \
+  --replication-instance-identifier my-repl-instance \
+  --allocated-storage 100 \
+  --replication-instance-class dms.t3.medium \
+  --engine-version 3.5.1 \
+  --no-publicly-accessible \
+  --vpc-security-group-ids sg-0abc1234def56789a \
+  --replication-subnet-group-identifier my-dms-subnet-group \
+  --tags Key=Name,Value=DMSReplInstance
+
+
+2) After running this, DMS will return a JSON blob. Capture the "ReplicationInstanceArn" value:
+
+REPL_INSTANCE_ARN=$(aws dms describe-replication-instances \
+  --filters "Name=replication-instance-id,Values=my-repl-instance" \
+  --query "ReplicationInstances[0].ReplicationInstanceArn" \
+--output text)
+
+3) A DMS endpoint tells AWS DMS how to connect to your Oracle server. You must supply the listener address, port, username, password, and any extra attributes.
+
+aws dms create-endpoint \
+  --endpoint-identifier oracle-source \
+  --endpoint-type source \
+  --engine-name oracle \
+  --username dms_user \
+  --password "YourOraclePassword" \
+  --server-name oracle-company.example.com \
+  --port 1521 \
+  --database-name ORCL \
+  --extra-connection-attributes "parallelLoadThreads=1;directPathNoLog" \
+  --ssl-mode none \
+  --tags Key=Name,Value=OracleSourceEndpoint
+
+4) Once created, capture its ARN
+
+SOURCE_ENDPOINT_ARN=$(aws dms describe-endpoints \
+  --filters "Name=endpoint-id,Values=oracle-source" \
+  --query "Endpoints[0].EndpointArn" \
+  --output text)
+
+
+5) Create the Target Endpoint (PostgreSQL)
+
+aws dms create-endpoint \
+  --endpoint-identifier postgres-target \
+  --endpoint-type target \
+  --engine-name postgres \
+  --username dms_pg_user \
+  --password "YourPostgresPassword" \
+  --server-name mypginstance.abcdefg123.us-east-1.rds.amazonaws.com \
+  --port 5432 \
+  --database-name mytargetdb \
+  --ssl-mode require \
+  --tags Key=Name,Value=PostgresTargetEndpoint
+
+6) Capture its ARN:
+
+TARGET_ENDPOINT_ARN=$(aws dms describe-endpoints \
+  --filters "Name=endpoint-id,Values=postgres-target" \
+  --query "Endpoints[0].EndpointArn" \
+--output text)
+
+
+7) Test Connectivity
+
+aws dms test-connection \
+  --replication-instance-arn "$REPL_INSTANCE_ARN" \
+  --endpoint-arn "$SOURCE_ENDPOINT_ARN"
+
+
+8) (optional) To verify replication instance status
+
+aws dms describe-replication-instances \
+  --replication-instance-arn "$REPL_INSTANCE_ARN" \
+  --query "ReplicationInstances[0].ReplicationInstanceStatus" \
+--output text
+
+
+9) Prepare Table‐Mapping JSON to a file table-mappings.json:
+
+{
+  "rules": [
+    {
+      "rule-type": "selection",
+      "rule-id": "1",
+      "rule-name": "SelectHR_Employees",
+      "object-locator": {
+        "schema-name": "HR",
+        "table-name": "EMPLOYEES"
+      },
+      "rule-action": "include"
+    }
+  ]
+}
+
+
+10) Makesure right task settings are configured in JSON format to a file: task-settings.json
+{
+  "FullLoadSettings": {
+    "TargetTablePrepMode": "DO_NOTHING"
+  }
+}
+
+
+11) Create a replication task:
+
+aws dms create-replication-task
+--replication-task-identifier oracle2pg-task
+--source-endpoint-arn <source-arn>
+--target-endpoint-arn <target-arn>
+--replication-instance-arn <replica-arn>
+--migration-type full-load-and-cdc
+--table-mappings file://table-mappings.json
+--replication-task-settings file://task-settings.json
+
+11.1) TASK_ARN=$(aws dms describe-replication-tasks \
+  --filters "Name=replication-task-id,Values=hr-employees-task" \
+  --query "ReplicationTasks[0].ReplicationTaskArn" \
+  --output text)
+
+
+12) Start a task
+aws dms start-replication-task --replication-task-arn "$TASK_ARN" --start-replication-task-type start-replication
+
+13) Stop a task
+aws dms stop-replication-task --replication-task-arn <task-arn>
+
+14) Delete replication task
+aws dms delete-replication-task --replication-task-arn <task-arn>
+
+15) Delete endpoints
+aws dms delete-endpoint --endpoint-arn <source-arn>
+aws dms delete-endpoint --endpoint-arn <target-arn>	
+
+16) Delete replication instance	
+aws dms delete-replication-instance --replication-instance-arn <replica-arn>	
+
+
+13) Check task status
+
+aws dms describe-replication-tasks \
+  --filters "Name=replication-task-id,Values=oracle2pg-task" \
+  --query "ReplicationTasks[0].Status"
+
+13) Describe tasks:
+aws dms describe-replication-tasks
