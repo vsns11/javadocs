@@ -146,3 +146,60 @@ aws dms describe-replication-tasks \
 
 13) Describe tasks:
 aws dms describe-replication-tasks
+
+------------
+copy existing attributes from already created task:
+
+1) List all endpoints (prints identifier, ARN, type, engine):
+
+aws dms describe-endpoints \
+  --query "Endpoints[*].{ID:EndpointIdentifier,ARN:EndpointArn,Type:EndpointType,Engine:EngineName}" \
+  --output table
+Look for the row where EndpointType = “source” (Oracle) and note its EndpointArn (e.g. arn:aws:dms:…:endpoint:oracle-source-1234).
+• Similarly, find the row with EndpointType = “target” (Postgres) and copy that ARN (e.g. arn:aws:dms:…:endpoint:postgres-target-5678).
+
+
+2)(Optional) Inspect an endpoint’s full configuration if you want to recreate using cli
+
+aws dms describe-endpoints \
+  --filters "Name=endpoint-arn,Values=<the-EndpointArn-you-noted>" \
+  --query "Endpoints[0]"
+
+3) Find the existing Replication Instance ARN
+aws dms describe-replication-instances \
+  --query "ReplicationInstances[*].{ID:ReplicationInstanceIdentifier,ARN:ReplicationInstanceArn,Class:ReplicationInstanceClass,Status:ReplicationInstanceStatus}" \
+  --output table
+
+
+Copy the ARN of the instance you want (e.g. arn:aws:dms:…:rep:my-repl-instance).
+• If multiple instances appear, pick the one in an “available” state and in the same VPC/security‐group your endpoints can reach.
+
+4) List all tasks (shows ID, ARN, status, migration type):
+aws dms describe-replication-tasks \
+  --query "ReplicationTasks[*].{ID:ReplicationTaskIdentifier,ARN:ReplicationTaskArn,Status:Status,Type:MigrationType}" \
+  --output table
+
+ Identify the task whose settings you want to clone, then copy its ARN (e.g. arn:aws:dms:…:task:oracle2pg‐1234).
+
+5) Dump the full task definition (including TableMappings and ReplicationTaskSettings JSON):
+
+aws dms describe-replication-tasks \
+  --filters "Name=replication-task-arn,Values=<the-TaskArn-you-noted>" \
+  --query "ReplicationTasks[0]"
+
+6) Extract the JSON blobs
+If you want to salvage exactly the same table‐mappings and task‐settings, copy the contents of "TableMappings" and save it to a local file, e.g. copy‐table‐mappings.json:
+
+aws dms describe-replication-tasks \
+  --filters "Name=replication-task-arn,Values=<TaskArn>" \
+  --query "ReplicationTasks[0].TableMappings" \
+  --output text > ~/dms/copy‐table‐mappings.json
+
+aws dms describe-replication-tasks \
+  --filters "Name=replication-task-arn,Values=<TaskArn>" \
+  --query "ReplicationTasks[0].ReplicationTaskSettings" \
+  --output text > ~/dms/copy‐task‐settings.json
+
+
+
+7) 
