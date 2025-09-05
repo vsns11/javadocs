@@ -1,0 +1,357 @@
+# =====================================================================
+# File: pom.xml
+# =====================================================================
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>portquery-mapper</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>PortQuery Mapper</name>
+  <properties>
+    <java.version>17</java.version>
+    <spring-boot.version>3.3.2</spring-boot.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jayway.jsonpath</groupId>
+      <artifactId>json-path</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+# =====================================================================
+# File: src/main/resources/application.yml
+# =====================================================================
+server:
+  port: 8080
+
+portquery:
+  mapping: classpath:mapping.yml
+
+# =====================================================================
+# File: src/main/resources/mapping.yml
+# (single JSONPath per item, no fallbacks)
+# =====================================================================
+rootAnchor: "$.event.retrieveResourceConfig.resource"
+
+characteristics:
+  - name: internetStatus
+    jsonPath: ".resourceCharacteristic[?(@.name=='INTERNET_STATUS')].value"
+
+  - name: ponStatus
+    jsonPath: "..resourceRelationship[?(@.resource.value.resourceSpecification.name=='port_lk')].resource..operationState"
+
+  - name: ontState
+    jsonPath: "[?(@.resourceSpecification.name=='ont_lk')].operationalState"
+
+kpi:
+  - name: hsiProfile
+    jsonPath: ".resourceCharacteristic[?(@.name=='HSI_PROF_NAME')].value"
+
+  - name: accessSummaryStatus
+    jsonPath: ".resourceCharacteristic[?(@.name=='INTERNET_STATUS')].value"
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/PortQueryMapperApplication.java
+# =====================================================================
+package com.example.portquery;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PortQueryMapperApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(PortQueryMapperApplication.class, args);
+    }
+}
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/api/dto/Characteristic.java
+# =====================================================================
+package com.example.portquery.api.dto;
+
+import lombok.Builder;
+import lombok.NonNull;
+import lombok.Value;
+
+@Value
+@Builder(toBuilder = true)
+public class Characteristic {
+    @NonNull String name; // camelCase key
+    String value;         // may be null if JSONPath returns nothing
+}
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/api/dto/KpiAndCharacteristics.java
+# =====================================================================
+package com.example.portquery.api.dto;
+
+import lombok.Builder;
+import lombok.Singular;
+import lombok.Value;
+
+import java.util.List;
+
+@Value
+@Builder(toBuilder = true)
+public class KpiAndCharacteristics {
+    @Singular("kpiItem") List<Characteristic> kpi;
+    @Singular("charItem") List<Characteristic> characteristics;
+}
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/config/SimpleDef.java
+# =====================================================================
+package com.example.portquery.config;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class SimpleDef {
+    private String name;     // camelCase external key to export
+    private String jsonPath; // single JSONPath (no fallbacks)
+}
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/config/MappingYaml.java
+# =====================================================================
+package com.example.portquery.config;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+public class MappingYaml {
+    private String rootAnchor; // e.g. "$.event.retrieveResourceConfig.resource"
+    private List<SimpleDef> characteristics;
+    private List<SimpleDef> kpi;
+}
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/config/MappingConfig.java
+# =====================================================================
+package com.example.portquery.config;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
+import org.yaml.snakeyaml.LoaderOptions;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
+
+import java.io.InputStream;
+import java.util.Objects;
+
+@Component
+@RequiredArgsConstructor
+public class MappingConfig {
+
+    @Value("${portquery.mapping:classpath:mapping.yml}")
+    private Resource mappingResource;
+
+    public MappingYaml load() {
+        try (InputStream in = mappingResource.getInputStream()) {
+            var options = new LoaderOptions();
+            options.setMaxAliasesForCollections(50);
+            var yaml = new Yaml(new Constructor(MappingYaml.class, options));
+            MappingYaml cfg = yaml.load(in);
+            if (cfg == null) throw new IllegalStateException("Empty mapping YAML: " + mappingResource);
+            validate(cfg);
+            return cfg;
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to load mapping YAML: " + mappingResource, e);
+        }
+    }
+
+    private void validate(MappingYaml cfg) {
+        boolean hasAny = (cfg.getCharacteristics() != null && !cfg.getCharacteristics().isEmpty())
+                || (cfg.getKpi() != null && !cfg.getKpi().isEmpty());
+        if (!hasAny) throw new IllegalArgumentException("Config must define 'characteristics' and/or 'kpi'");
+        if (cfg.getCharacteristics() != null) cfg.getCharacteristics().forEach(this::requireValid);
+        if (cfg.getKpi() != null) cfg.getKpi().forEach(this::requireValid);
+    }
+
+    private void requireValid(SimpleDef def) {
+        if (def.getName() == null || def.getName().isBlank())
+            throw new IllegalArgumentException("Each definition needs a non-empty name");
+        if (def.getJsonPath() == null || def.getJsonPath().isBlank())
+            throw new IllegalArgumentException("'" + def.getName() + "' requires a jsonPath");
+        if (def.getJsonPath().contains("||"))
+            throw new IllegalArgumentException("'" + def.getName() + "': fallback (||) not allowed");
+    }
+}
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/service/PortQueryMappingService.java
+# =====================================================================
+package com.example.portquery.service;
+
+import com.example.portquery.api.dto.KpiAndCharacteristics;
+import com.example.portquery.api.dto.Characteristic;
+import com.example.portquery.config.*;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Option;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class PortQueryMappingService {
+
+    private final MappingConfig mappingConfig;
+
+    private final Configuration jsonPathCfg = Configuration.builder()
+            .options(Option.DEFAULT_PATH_LEAF_TO_NULL, Option.SUPPRESS_EXCEPTIONS)
+            .build();
+
+    public KpiAndCharacteristics buildFromEventJson(String eventJson) {
+        MappingYaml cfg = mappingConfig.load();
+        String root = Optional.ofNullable(cfg.getRootAnchor())
+                .filter(s -> !s.isBlank())
+                .orElse("$.event.retrieveResourceConfig.resource");
+
+        DocumentContext ctx = JsonPath.using(jsonPathCfg).parse(eventJson);
+
+        List<Characteristic> characteristics = mapAll(cfg.getCharacteristics(), ctx, root);
+        List<Characteristic> kpi = mapAll(cfg.getKpi(), ctx, root);
+
+        return KpiAndCharacteristics.builder()
+                .characteristics(characteristics)
+                .kpi(kpi)
+                .build();
+    }
+
+    private List<Characteristic> mapAll(List<SimpleDef> defs, DocumentContext ctx, String root) {
+        return Optional.ofNullable(defs).orElseGet(List::of)
+                .stream()
+                .map(d -> mapOne(d, ctx, root))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    private Characteristic mapOne(SimpleDef def, DocumentContext ctx, String root) {
+        String name = Objects.requireNonNull(def.getName(), "name");
+        String path = Objects.requireNonNull(def.getJsonPath(), "jsonPath");
+        String qualified = qualify(root, path);
+        String value = readFirstScalar(ctx, qualified);
+        return Characteristic.builder().name(name).value(value).build();
+    }
+
+    private String qualify(String root, String path) {
+        if (path.startsWith("$")) return path;
+        if (path.startsWith("..") || path.startsWith(".")) return root + path;
+        return path;
+    }
+
+    private String readFirstScalar(DocumentContext ctx, String path) {
+        Object raw = ctx.read(path);
+        return toScalar(raw);
+    }
+
+    @SuppressWarnings("unchecked")
+    private String toScalar(Object raw) {
+        if (raw == null) return null;
+        if (raw instanceof List<?> list) {
+            for (Object e : list) {
+                String s = toScalar(e);
+                if (s != null && !s.isEmpty()) return s;
+            }
+            return null;
+        }
+        return Objects.toString(raw, null);
+    }
+}
+
+# =====================================================================
+# File: src/main/java/com/example/portquery/api/PortQueryController.java
+# =====================================================================
+package com.example.portquery.api;
+
+import com.example.portquery.api.dto.KpiAndCharacteristics;
+import com.example.portquery.service.PortQueryMappingService;
+import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/port-query")
+@RequiredArgsConstructor
+public class PortQueryController {
+
+    private final PortQueryMappingService service;
+
+    @PostMapping(value = "/build", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public KpiAndCharacteristics build(@RequestBody @NotBlank String eventJson) {
+        return service.buildFromEventJson(eventJson);
+    }
+}
